@@ -6,1020 +6,743 @@
 <title>心理健康产品政府招采市场分析报告 2024-2026</title>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: #f0f2f5; color: #1a1a2e; }
-
-  /* 顶部横幅 */
-  .hero {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
-    color: white;
-    padding: 60px 40px 50px;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(83,132,255,0.15) 0%, transparent 70%);
-  }
-  .hero-tag {
-    display: inline-block;
-    background: rgba(83,132,255,0.25);
-    border: 1px solid rgba(83,132,255,0.5);
-    color: #7ba7ff;
-    padding: 4px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-  }
-  .hero h1 { font-size: 36px; font-weight: 700; line-height: 1.3; margin-bottom: 12px; }
-  .hero p { font-size: 16px; color: rgba(255,255,255,0.65); margin-bottom: 30px; }
-  .hero-stats {
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
-  }
-  .hero-stat { text-align: center; }
-  .hero-stat .num { font-size: 38px; font-weight: 800; color: #5384ff; line-height: 1; }
-  .hero-stat .label { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 6px; }
-
-  /* 主体 */
-  .container { max-width: 1400px; margin: 0 auto; padding: 30px 30px; }
-
-  /* section标题 */
-  .section-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: #1a1a2e;
-    margin: 40px 0 20px;
-    padding-left: 14px;
-    border-left: 4px solid #5384ff;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .section-title .badge {
-    font-size: 12px;
-    background: #eef2ff;
-    color: #5384ff;
-    padding: 2px 10px;
-    border-radius: 20px;
-    font-weight: 500;
-  }
-
-  /* KPI卡片 */
-  .kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 10px;
-  }
-  .kpi-card {
-    background: white;
-    border-radius: 14px;
-    padding: 24px 20px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    position: relative;
-    overflow: hidden;
-  }
-  .kpi-card::after {
-    content: '';
-    position: absolute;
-    top: 0; right: 0;
-    width: 80px; height: 80px;
-    border-radius: 0 14px 0 80px;
-    opacity: 0.08;
-  }
-  .kpi-card.blue::after { background: #5384ff; }
-  .kpi-card.green::after { background: #22c55e; }
-  .kpi-card.orange::after { background: #f97316; }
-  .kpi-card.purple::after { background: #a855f7; }
-  .kpi-card .icon { font-size: 28px; margin-bottom: 12px; }
-  .kpi-card .value { font-size: 34px; font-weight: 800; color: #1a1a2e; line-height: 1; }
-  .kpi-card .unit { font-size: 14px; font-weight: 500; color: #64748b; }
-  .kpi-card .label { font-size: 13px; color: #94a3b8; margin-top: 8px; }
-  .kpi-card .trend { font-size: 12px; margin-top: 8px; }
-  .kpi-card .trend.up { color: #ef4444; }
-  .kpi-card .trend.down { color: #22c55e; }
-
-  /* 图表卡片 */
-  .chart-card {
-    background: white;
-    border-radius: 14px;
-    padding: 24px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    margin-bottom: 20px;
-  }
-  .chart-card h3 {
-    font-size: 16px;
-    font-weight: 600;
-    color: #1a1a2e;
-    margin-bottom: 4px;
-  }
-  .chart-card .sub { font-size: 13px; color: #94a3b8; margin-bottom: 20px; }
-  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
-  .chart-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px; }
-  .chart-full { margin-bottom: 20px; }
-
-  /* AI专区 */
-  .ai-section {
-    background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
-    border-radius: 14px;
-    padding: 28px;
-    color: white;
-    margin-bottom: 20px;
-  }
-  .ai-section h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; color: #7ba7ff; }
-  .ai-section .desc { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 24px; }
-  .ai-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-  .ai-item {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(83,132,255,0.2);
-    border-radius: 10px;
-    padding: 16px;
-  }
-  .ai-item .num { font-size: 28px; font-weight: 800; color: #5384ff; }
-  .ai-item .ai-label { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 4px; }
-  .ai-item .detail { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 8px; line-height: 1.5; }
-
-  /* 案例卡片 */
-  .cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
-  .case-card {
-    background: white;
-    border-radius: 12px;
-    padding: 18px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    border-left: 4px solid;
-  }
-  .case-card.ai-color { border-color: #5384ff; }
-  .case-card.health-color { border-color: #22c55e; }
-  .case-card.equip-color { border-color: #f97316; }
-  .case-card .tag {
-    display: inline-block;
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 20px;
-    margin-bottom: 10px;
-    font-weight: 600;
-  }
-  .case-card.ai-color .tag { background: #eef2ff; color: #5384ff; }
-  .case-card.health-color .tag { background: #f0fdf4; color: #16a34a; }
-  .case-card.equip-color .tag { background: #fff7ed; color: #ea580c; }
-  .case-card .title { font-size: 13px; color: #1a1a2e; line-height: 1.5; font-weight: 500; }
-  .case-card .meta { font-size: 12px; color: #94a3b8; margin-top: 8px; }
-
-  /* 洞察卡片 */
-  .insights { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 20px; }
-  .insight-card {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  }
-  .insight-card .icon-big { font-size: 32px; margin-bottom: 12px; }
-  .insight-card h4 { font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
-  .insight-card p { font-size: 13px; color: #64748b; line-height: 1.7; }
-  .insight-card .highlight { color: #5384ff; font-weight: 600; }
-
-  /* 表格 */
-  .table-wrap { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th { background: #f8fafc; padding: 12px 16px; text-align: left; color: #64748b; font-weight: 600; border-bottom: 2px solid #e2e8f0; white-space: nowrap; }
-  td { padding: 11px 16px; border-bottom: 1px solid #f1f5f9; color: #1a1a2e; }
-  tr:hover td { background: #f8fafc; }
-  .rank-num { display: inline-block; width: 22px; height: 22px; border-radius: 50%; text-align: center; line-height: 22px; font-size: 11px; font-weight: 700; }
-  .rank-1 { background: #ffd700; color: #92400e; }
-  .rank-2 { background: #c0c0c0; color: #374151; }
-  .rank-3 { background: #cd7f32; color: white; }
-  .rank-n { background: #f1f5f9; color: #64748b; }
-  .bar-mini { height: 6px; background: #e2e8f0; border-radius: 3px; margin-top: 4px; }
-  .bar-fill { height: 6px; background: linear-gradient(90deg, #5384ff, #7ba7ff); border-radius: 3px; }
-
-  /* 底部 */
-  .footer {
-    background: #1a1a2e;
-    color: rgba(255,255,255,0.4);
-    text-align: center;
-    padding: 30px;
-    font-size: 13px;
-    margin-top: 40px;
-    border-radius: 14px;
-  }
-
-  @media (max-width: 900px) {
-    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-    .chart-row, .chart-row-3 { grid-template-columns: 1fr; }
-    .ai-grid, .cases-grid, .insights { grid-template-columns: 1fr; }
-  }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: #f0f2f5; color: #1a1a2e; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+  color: white; padding: 60px 40px 50px; position: relative; overflow: hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:-50%; right:-10%; width:600px; height:600px;
+  border-radius:50%; background:radial-gradient(circle, rgba(83,132,255,0.15) 0%, transparent 70%);
+}
+.hero-tag {
+  display:inline-block; background:rgba(83,132,255,0.25); border:1px solid rgba(83,132,255,0.5);
+  color:#7ba7ff; padding:4px 14px; border-radius:20px; font-size:13px; margin-bottom:20px; letter-spacing:1px;
+}
+.hero h1 { font-size:36px; font-weight:700; line-height:1.3; margin-bottom:12px; }
+.hero p { font-size:16px; color:rgba(255,255,255,0.65); margin-bottom:30px; }
+.hero-stats { display:flex; gap:40px; flex-wrap:wrap; }
+.hero-stat { text-align:center; }
+.hero-stat .num { font-size:38px; font-weight:800; color:#5384ff; line-height:1; }
+.hero-stat .label { font-size:13px; color:rgba(255,255,255,0.55); margin-top:6px; }
+.container { max-width:1400px; margin:0 auto; padding:30px; }
+.section-title {
+  font-size:22px; font-weight:700; color:#1a1a2e; margin:40px 0 20px;
+  padding-left:14px; border-left:4px solid #5384ff; display:flex; align-items:center; gap:10px;
+}
+.section-title .badge {
+  font-size:12px; background:#eef2ff; color:#5384ff; padding:2px 10px; border-radius:20px; font-weight:500;
+}
+.new-badge {
+  font-size:11px; background:#fef3c7; color:#d97706; padding:2px 10px; border-radius:20px; font-weight:600; border:1px solid #fcd34d;
+}
+.kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:10px; }
+.kpi-card {
+  background:white; border-radius:14px; padding:22px 24px; box-shadow:0 2px 12px rgba(0,0,0,0.06);
+  border-top:3px solid #5384ff;
+}
+.kpi-card .num { font-size:32px; font-weight:800; color:#5384ff; line-height:1; }
+.kpi-card .label { font-size:13px; color:#64748b; margin-top:6px; }
+.kpi-card .sub { font-size:12px; color:#94a3b8; margin-top:4px; }
+.chart-card {
+  background:white; border-radius:14px; padding:24px; box-shadow:0 2px 12px rgba(0,0,0,0.06); margin-bottom:20px;
+}
+.chart-card h3 { font-size:16px; font-weight:600; color:#1a1a2e; margin-bottom:6px; }
+.chart-card .sub-desc { font-size:13px; color:#94a3b8; margin-bottom:16px; }
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; }
+.insight-box {
+  background:linear-gradient(135deg,#eef2ff,#f0fdf4); border-radius:14px; padding:24px;
+  border-left:4px solid #5384ff; margin-bottom:20px;
+}
+.insight-box h3 { font-size:16px; font-weight:700; color:#1e40af; margin-bottom:12px; }
+.insight-item { display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; }
+.insight-dot { width:8px; height:8px; border-radius:50%; background:#5384ff; margin-top:5px; flex-shrink:0; }
+.insight-text { font-size:14px; color:#374151; line-height:1.6; }
+.tag-orange { background:#fff7ed; color:#ea580c; border:1px solid #fed7aa; padding:2px 10px; border-radius:20px; font-size:12px; }
+.prod-legend { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:16px; }
+.prod-legend-item { display:flex; align-items:center; gap:6px; font-size:13px; color:#374151; }
+.dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+/* 省份热力条 */
+.prov-bar-row { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+.prov-name { font-size:13px; color:#374151; width:50px; flex-shrink:0; }
+.prov-bar-wrap { flex:1; height:20px; background:#f1f5f9; border-radius:4px; overflow:hidden; display:flex; }
+.prov-bar-seg { height:100%; transition:width 0.3s; }
+.prov-count { font-size:12px; color:#94a3b8; width:50px; text-align:right; flex-shrink:0; }
+/* 采购主体卡片 */
+.buyer-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.buyer-card {
+  background:#f8fafc; border-radius:10px; padding:16px; border-left:4px solid #5384ff;
+}
+.buyer-card .bname { font-size:14px; font-weight:600; color:#1a1a2e; }
+.buyer-card .bnum { font-size:24px; font-weight:800; margin:4px 0; }
+.buyer-card .bpct { font-size:12px; color:#94a3b8; }
+/* 表格 */
+.data-table { width:100%; border-collapse:collapse; font-size:13px; }
+.data-table th { padding:10px 12px; background:#f8fafc; color:#64748b; font-weight:600; text-align:left; border-bottom:2px solid #e2e8f0; }
+.data-table td { padding:10px 12px; border-bottom:1px solid #f1f5f9; color:#374151; }
+.data-table tr:hover td { background:#fafbff; }
+/* AI专区 */
+.ai-section {
+  background:linear-gradient(135deg,#1a1a2e,#0f3460); color:white; border-radius:14px; padding:28px; margin-bottom:20px;
+}
+.ai-section h3 { font-size:18px; font-weight:700; color:white; margin-bottom:8px; }
+.ai-kpi { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:20px 0; }
+.ai-kpi-item { background:rgba(255,255,255,0.08); border-radius:10px; padding:16px; text-align:center; border:1px solid rgba(255,255,255,0.1); }
+.ai-kpi-item .n { font-size:28px; font-weight:800; color:#f97316; }
+.ai-kpi-item .l { font-size:12px; color:rgba(255,255,255,0.5); margin-top:4px; }
+footer { text-align:center; padding:40px; color:#94a3b8; font-size:13px; }
 </style>
 </head>
 <body>
 
-<!-- 顶部横幅 -->
-<!-- ===== 近一周市场动态（自动更新）===== -->
-<div id="weekly-section" style="background:linear-gradient(135deg,#0d1117 0%,#1a1a2e 50%,#0f3460 100%);color:white;padding:40px 30px;">
-  <div style="max-width:1400px;margin:0 auto;">
-
-    <!-- 标题行 -->
-    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px;">
-      <div>
-        <div style="display:inline-block;background:rgba(249,115,22,0.2);border:1px solid rgba(249,115,22,0.4);color:#f97316;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:600;letter-spacing:1px;margin-bottom:10px;">🔄 每周自动更新</div>
-        <h2 style="font-size:24px;font-weight:800;color:white;margin:0;">近一周市场招采详情</h2>
-        <p style="font-size:14px;color:rgba(255,255,255,0.5);margin:6px 0 0;">统计区间：2026-03-18 ~ 2026-03-25 &nbsp;|&nbsp; 数据来源：中国政府采购网（CCGP）&nbsp;|&nbsp; 更新时间：2026-03-25</p>
-      </div>
-      <div style="text-align:center;background:rgba(83,132,255,0.12);border:1px solid rgba(83,132,255,0.3);border-radius:12px;padding:16px 28px;">
-        <div style="font-size:42px;font-weight:900;color:#5384ff;line-height:1">65</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px">本周新增公告</div>
-      </div>
-    </div>
-
-    
-
-    <!-- 分类 + 省份 双栏 -->
-    <div style="display:grid;grid-template-columns:2fr 1fr;gap:20px;margin-bottom:24px;">
-      <!-- 品类分布 -->
-      <div>
-        <div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">产品类别分布</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-          
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px;border-left:3px solid #22c55e">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:12px;color:rgba(255,255,255,0.75);">心理健康室/设备</span>
-            <span style="font-size:18px;font-weight:800;color:#22c55e">21</span>
-          </div>
-          <div style="margin-top:6px;height:4px;background:rgba(255,255,255,0.1);border-radius:2px;">
-            <div style="height:4px;width:32%;background:#22c55e;border-radius:2px;"></div>
-          </div>
-        </div>
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px;border-left:3px solid #5384ff">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:12px;color:rgba(255,255,255,0.75);">心理健康平台/系统</span>
-            <span style="font-size:18px;font-weight:800;color:#5384ff">18</span>
-          </div>
-          <div style="margin-top:6px;height:4px;background:rgba(255,255,255,0.1);border-radius:2px;">
-            <div style="height:4px;width:28%;background:#5384ff;border-radius:2px;"></div>
-          </div>
-        </div>
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px;border-left:3px solid #a855f7">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:12px;color:rgba(255,255,255,0.75);">医疗/精神卫生</span>
-            <span style="font-size:18px;font-weight:800;color:#a855f7">13</span>
-          </div>
-          <div style="margin-top:6px;height:4px;background:rgba(255,255,255,0.1);border-radius:2px;">
-            <div style="height:4px;width:20%;background:#a855f7;border-radius:2px;"></div>
-          </div>
-        </div>
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px;border-left:3px solid #f43f5e">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:12px;color:rgba(255,255,255,0.75);">社区/司法矫正心理</span>
-            <span style="font-size:18px;font-weight:800;color:#f43f5e">6</span>
-          </div>
-          <div style="margin-top:6px;height:4px;background:rgba(255,255,255,0.1);border-radius:2px;">
-            <div style="height:4px;width:9%;background:#f43f5e;border-radius:2px;"></div>
-          </div>
-        </div>
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px;border-left:3px solid #14b8a6">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:12px;color:rgba(255,255,255,0.75);">心理咨询服务</span>
-            <span style="font-size:18px;font-weight:800;color:#14b8a6">4</span>
-          </div>
-          <div style="margin-top:6px;height:4px;background:rgba(255,255,255,0.1);border-radius:2px;">
-            <div style="height:4px;width:6%;background:#14b8a6;border-radius:2px;"></div>
-          </div>
-        </div>
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px;border-left:3px solid #ec4899">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:12px;color:rgba(255,255,255,0.75);">学生/校园心理</span>
-            <span style="font-size:18px;font-weight:800;color:#ec4899">1</span>
-          </div>
-          <div style="margin-top:6px;height:4px;background:rgba(255,255,255,0.1);border-radius:2px;">
-            <div style="height:4px;width:2%;background:#ec4899;border-radius:2px;"></div>
-          </div>
-        </div>
-        </div>
-      </div>
-      <!-- 省份TOP5 -->
-      <div>
-        <div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">省份 TOP 5</div>
-        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 16px;">
-          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
-          <span style="font-size:13px;color:rgba(255,255,255,0.7)">山东</span>
-          <span style="font-size:13px;font-weight:700;color:#5384ff">21 条</span>
-        </div><div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
-          <span style="font-size:13px;color:rgba(255,255,255,0.7)">北京</span>
-          <span style="font-size:13px;font-weight:700;color:#5384ff">9 条</span>
-        </div><div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
-          <span style="font-size:13px;color:rgba(255,255,255,0.7)">四川</span>
-          <span style="font-size:13px;font-weight:700;color:#5384ff">9 条</span>
-        </div><div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
-          <span style="font-size:13px;color:rgba(255,255,255,0.7)">河南</span>
-          <span style="font-size:13px;font-weight:700;color:#5384ff">6 条</span>
-        </div><div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
-          <span style="font-size:13px;color:rgba(255,255,255,0.7)">重庆</span>
-          <span style="font-size:13px;font-weight:700;color:#5384ff">6 条</span>
-        </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 最新公告列表 -->
-    <div>
-      <div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">最新公告（最近10条）</div>
-      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;">
-        <table style="width:100%;border-collapse:collapse;">
-          <thead>
-            <tr style="background:rgba(255,255,255,0.05);">
-              <th style="padding:10px 12px;text-align:left;font-size:12px;color:rgba(255,255,255,0.4);font-weight:600;">项目名称</th>
-              <th style="padding:10px 8px;text-align:left;font-size:12px;color:rgba(255,255,255,0.4);font-weight:600;white-space:nowrap">公告类型</th>
-              <th style="padding:10px 8px;text-align:left;font-size:12px;color:rgba(255,255,255,0.4);font-weight:600;white-space:nowrap">省份</th>
-              <th style="padding:10px 8px;text-align:left;font-size:12px;color:rgba(255,255,255,0.4);font-weight:600;white-space:nowrap">日期</th>
-              <th style="padding:10px 8px;text-align:left;font-size:12px;color:rgba(255,255,255,0.4);font-weight:600;white-space:nowrap">类别</th>
-            </tr>
-          </thead>
-          <tbody>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">
-            <a href="http://www.ccgp.gov.cn/cggg/dfgg/zbgg/202603/t20260325_26310528.htm" target="_blank" style="color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;line-height:1.5;">山东省精神卫生中心医疗辅助岗位人力资源服务采购项目中标（成交）公告</a>
-          </td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6)">中标公告</span></td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.5);white-space:nowrap">山东</td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.4);white-space:nowrap">2026.03.25</td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:#14b8a622;color:#14b8a6;border:1px solid #14b8a644">心理咨询服务</span></td>
-        </tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">
-            <a href="http://www.ccgp.gov.cn/cggg/dfgg/gzgg/202603/t20260325_26310516.htm" target="_blank" style="color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;line-height:1.5;">枣庄市精神卫生中心全自动分包机设备采购更正公告</a>
-          </td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6)">更正公告</span></td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.5);white-space:nowrap">山东</td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.4);white-space:nowrap">2026.03.25</td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">心理健康室/设备</span></td>
-        </tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">
-            <a href="http://www.ccgp.gov.cn/cggg/dfgg/zbgg/202603/t20260325_26310900.htm" target="_blank" style="color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;line-height:1.5;">大英县人民医院县人民医院精神卫生中心医疗设备采购中标（成交）结果公告</a>
-          </td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6)">中标公告</span></td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.5);white-space:nowrap">四川</td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.4);white-space:nowrap">2026.03.25</td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">心理健康室/设备</span></td>
-        </tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">
-            <a href="http://www.ccgp.gov.cn/cggg/dfgg/cjgg/202603/t20260324_26308334.htm" target="_blank" style="color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;line-height:1.5;">信阳市司法局就社区矫正心理健康服务项目-成交公告</a>
-          </td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6)">成交公告</span></td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.5);white-space:nowrap">河南</td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.4);white-space:nowrap">2026.03.24</td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:#f43f5e22;color:#f43f5e;border:1px solid #f43f5e44">社区/司法矫正心</span></td>
-        </tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">
-            <a href="http://www.ccgp.gov.cn/cggg/dfgg/jzxcs/202603/t20260324_26306863.htm" target="_blank" style="color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;line-height:1.5;">成都市郫都区教育局2026年心理健康辅导员B、C证培训采购项目竞争性磋商公告</a>
-          </td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6)">磋商公告</span></td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.5);white-space:nowrap">北京</td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.4);white-space:nowrap">2026.03.24</td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:#5384ff22;color:#5384ff;border:1px solid #5384ff44">心理健康平台/系</span></td>
-        </tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">
-            <a href="http://www.ccgp.gov.cn/cggg/dfgg/qtgg/202603/t20260324_26305806.htm" target="_blank" style="color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;line-height:1.5;">洛阳市司法局社区矫正心理健康服务项目-废标（终止）公告</a>
-          </td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6)">废标公告</span></td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.5);white-space:nowrap">河南</td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.4);white-space:nowrap">2026.03.24</td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:#f43f5e22;color:#f43f5e;border:1px solid #f43f5e44">社区/司法矫正心</span></td>
-        </tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">
-            <a href="http://www.ccgp.gov.cn/cggg/dfgg/jzxcs/202603/t20260324_26303412.htm" target="_blank" style="color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;line-height:1.5;">济南大学学生心理健康教育工作平台采购项目（11672）  竞争性磋商公告</a>
-          </td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6)">磋商公告</span></td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.5);white-space:nowrap">山东</td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.4);white-space:nowrap">2026.03.24</td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:#5384ff22;color:#5384ff;border:1px solid #5384ff44">心理健康平台/系</span></td>
-        </tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">
-            <a href="http://www.ccgp.gov.cn/cggg/dfgg/jzxcs/202603/t20260324_26303375.htm" target="_blank" style="color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;line-height:1.5;">山东省第二荣军优抚医院心理健康管理系统购置项目竞争性磋商公告</a>
-          </td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6)">磋商公告</span></td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.5);white-space:nowrap">山东</td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.4);white-space:nowrap">2026.03.24</td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:#5384ff22;color:#5384ff;border:1px solid #5384ff44">心理健康平台/系</span></td>
-        </tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">
-            <a href="http://www.ccgp.gov.cn/cggg/dfgg/jzxcs/202603/t20260324_26304933.htm" target="_blank" style="color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;line-height:1.5;">山东省12356心理援助热线跨区域联席服务系统项目竞争性磋商公告</a>
-          </td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6)">磋商公告</span></td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.5);white-space:nowrap">山东</td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.4);white-space:nowrap">2026.03.24</td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:#5384ff22;color:#5384ff;border:1px solid #5384ff44">心理健康平台/系</span></td>
-        </tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-          <td style="padding:10px 12px;">
-            <a href="http://www.ccgp.gov.cn/cggg/dfgg/fblbgg/202603/t20260324_26309129.htm" target="_blank" style="color:rgba(255,255,255,0.85);text-decoration:none;font-size:13px;line-height:1.5;">洛阳市第五人民医院医学睡眠科和心理咨询中心设备采购项目三标段-终止公告</a>
-          </td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6)"></span></td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.5);white-space:nowrap">河南</td>
-          <td style="padding:10px 8px;font-size:12px;color:rgba(255,255,255,0.4);white-space:nowrap">2026.03.24</td>
-          <td style="padding:10px 8px;white-space:nowrap;"><span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">心理健康室/设备</span></td>
-        </tr></tbody>
-        </table>
-      </div>
-    </div>
-
-  </div>
-</div>
-<!-- ===== /近一周市场动态 ===== -->
-
+<!-- HERO -->
 <div class="hero">
-  <div style="max-width:1400px;margin:0 auto;">
-    <div class="hero-tag">📊 政府招采数据分析</div>
-    <h1>心理健康产品<br>政府招采市场分析报告</h1>
-    <p>数据来源：中国政府采购网（CCGP）｜时间范围：2024—2026年｜报告生成：2026年3月</p>
-    <div class="hero-stats">
-      <div class="hero-stat"><div class="num">8,480</div><div class="label">有效招采记录</div></div>
-      <div class="hero-stat"><div class="num">51</div><div class="label">覆盖关键词</div></div>
-      <div class="hero-stat"><div class="num">31+</div><div class="label">省市自治区</div></div>
-      <div class="hero-stat"><div class="num">3</div><div class="label">年度跨度</div></div>
-    </div>
+  <div class="hero-tag">📊 政府采购数据分析 · 自动更新</div>
+  <h1>心理健康产品政府招采市场分析报告</h1>
+  <p>数据来源：中国政府采购网（CCGP）| 统计区间：2024 - 2026 年 | 共 8,480 条有效公告</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">8,480</div><div class="label">公告总量</div></div>
+    <div class="hero-stat"><div class="num">31</div><div class="label">覆盖省市</div></div>
+    <div class="hero-stat"><div class="num">4</div><div class="label">产品大类</div></div>
+    <div class="hero-stat"><div class="num">9</div><div class="label">采购主体类型</div></div>
+    <div class="hero-stat"><div class="num">51</div><div class="label">监控关键词</div></div>
   </div>
 </div>
 
 <div class="container">
 
-  <!-- KPI概览 -->
-  <div class="section-title">核心数据总览 <span class="badge">Key Metrics</span></div>
-  <div class="kpi-grid">
-    <div class="kpi-card blue">
-      <div class="icon">📋</div>
-      <div class="value">8,480 <span class="unit">条</span></div>
-      <div class="label">有效招采记录总量</div>
-      <div class="trend up">↑ 涵盖2024-2026年全量数据</div>
-    </div>
-    <div class="kpi-card green">
-      <div class="icon">🏛️</div>
-      <div class="value">31 <span class="unit">个</span></div>
-      <div class="label">覆盖省市自治区</div>
-      <div class="trend up">↑ 北京占比达31.5%</div>
-    </div>
-    <div class="kpi-card orange">
-      <div class="icon">💰</div>
-      <div class="value">1.47 <span class="unit">亿元</span></div>
-      <div class="label">可追踪成交金额（样本）</div>
-      <div class="trend">均次成交约 368 万元</div>
-    </div>
-    <div class="kpi-card purple">
-      <div class="icon">🤖</div>
-      <div class="value">31 <span class="unit">条</span></div>
-      <div class="label">AI心理陪伴相关采购</div>
-      <div class="trend up">↑ 新兴赛道，快速成长中</div>
-    </div>
+<!-- KPI -->
+<div class="kpi-grid" style="margin-top:30px;">
+  <div class="kpi-card">
+    <div class="num">4,745</div>
+    <div class="label">2024年公告数</div>
+    <div class="sub">同比基准年</div>
   </div>
-
-  <!-- 年度趋势 + 公告类型 -->
-  <div class="section-title">市场规模与趋势 <span class="badge">Trend Analysis</span></div>
-  <div class="chart-row">
-    <div class="chart-card">
-      <h3>年度招采数量趋势</h3>
-      <div class="sub">2024-2025年数据对比及2026年上半年预测</div>
-      <div id="chart-year" style="height:300px;"></div>
-    </div>
-    <div class="chart-card">
-      <h3>月度招采节律（2024 vs 2025）</h3>
-      <div class="sub">政府采购呈现明显季节性波动</div>
-      <div id="chart-monthly" style="height:300px;"></div>
-    </div>
+  <div class="kpi-card" style="border-color:#22c55e;">
+    <div class="num" style="color:#22c55e;">3,072</div>
+    <div class="label">2025年公告数</div>
+    <div class="sub">含最新数据</div>
   </div>
-
-  <!-- 产品类别 + 公告类型 -->
-  <div class="chart-row">
-    <div class="chart-card">
-      <h3>产品类别市场分布</h3>
-      <div class="sub">按采购记录数量统计（共11大类）</div>
-      <div id="chart-category" style="height:340px;"></div>
-    </div>
-    <div class="chart-card">
-      <h3>采购公告类型分布</h3>
-      <div class="sub">反映采购方式偏好与市场透明度</div>
-      <div id="chart-notice" style="height:340px;"></div>
-    </div>
+  <div class="kpi-card" style="border-color:#f97316;">
+    <div class="num" style="color:#f97316;">657</div>
+    <div class="label">2026年公告数</div>
+    <div class="sub">一季度数据</div>
   </div>
-
-  <!-- 地域分析 -->
-  <div class="section-title">地域分布分析 <span class="badge">Regional Analysis</span></div>
-  <div class="chart-full">
-    <div class="chart-card">
-      <h3>全国各省市招采规模排名（TOP 20）</h3>
-      <div class="sub">北京市遥遥领先，西部省份呈现快速增长势头</div>
-      <div id="chart-province" style="height:400px;"></div>
-    </div>
-  </div>
-  <div class="chart-row">
-    <div class="chart-card">
-      <h3>省份年度对比（TOP 5）</h3>
-      <div class="sub">2024年 vs 2025年招采量变化</div>
-      <div id="chart-province-year" style="height:300px;"></div>
-    </div>
-    <div class="chart-card">
-      <h3>采购主体类型分布</h3>
-      <div class="sub">医疗卫生机构为最大买方，教育机构次之</div>
-      <div id="chart-unit-type" style="height:300px;"></div>
-    </div>
-  </div>
-
-  <!-- 关键词热度 -->
-  <div class="section-title">关键词需求热度 <span class="badge">Keyword Insights</span></div>
-  <div class="chart-full">
-    <div class="chart-card">
-      <h3>采购关键词 Top 20 热度排名</h3>
-      <div class="sub">精神卫生、心理健康为绝对主词，AI智能心理类词快速崛起</div>
-      <div id="chart-keyword" style="height:420px;"></div>
-    </div>
-  </div>
-
-  <!-- 省份采购记录详表 -->
-  <div class="chart-card">
-    <h3>各省市招采数据详表（TOP 20）</h3>
-    <div class="sub">含年度分布与市场占比</div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>排名</th>
-            <th>省市</th>
-            <th>2024年</th>
-            <th>2025年</th>
-            <th>2026年（截至3月）</th>
-            <th>合计</th>
-            <th>市场占比</th>
-          </tr>
-        </thead>
-        <tbody id="province-table-body"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- AI心理专区 -->
-  <div class="section-title">AI心理陪伴赛道洞察 <span class="badge">AI Track</span></div>
-  <div class="ai-section">
-    <h3>🤖 AI 心理陪伴 · 政府采购首现</h3>
-    <div class="desc">从8480条记录中筛选出与 AI、智能心理、心理机器人、情感陪伴相关的政府采购公告，共31条，代表该赛道已正式进入政府采购视野</div>
-    <div class="ai-grid">
-      <div class="ai-item">
-        <div class="num">31</div>
-        <div class="ai-label">AI心理相关采购记录</div>
-        <div class="detail">覆盖智能心理扫描系统、AI心理监测、智能心理小屋、智能心理监护系统等多类产品</div>
-      </div>
-      <div class="ai-item">
-        <div class="num">2024~</div>
-        <div class="ai-label">政府采购元年</div>
-        <div class="detail">2024年率先出现16条AI心理采购，2025年持续跟进13条，技术从实验走向规模化采购</div>
-      </div>
-      <div class="ai-item">
-        <div class="num">7省</div>
-        <div class="ai-label">已有AI心理采购落地</div>
-        <div class="detail">四川、湖北、福建、安徽、海南等省市已有实际采购案例，北京为信息登记地</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- AI心理典型案例 -->
-  <div class="cases-grid">
-    <div class="case-card ai-color">
-      <span class="tag">AI心理扫描</span>
-      <div class="title">成都大学附属医院智能心理扫描系统（心理CT）等仪器设备采购</div>
-      <div class="meta">📍 四川 · 2025-2026 · 医疗卫生 · 多次招标</div>
-    </div>
-    <div class="case-card ai-color">
-      <span class="tag">AI心理监测</span>
-      <div class="title">万宁市公安局 AI心理监测购买服务项目询价公告</div>
-      <div class="meta">📍 海南 · 2025 · 政府机关 · 公安系统首单</div>
-    </div>
-    <div class="case-card ai-color">
-      <span class="tag">智能心理小屋</span>
-      <div class="title">麟峰小学智能心理小屋、放学系统及体育设备采购</div>
-      <div class="meta">📍 福建 · 2025 · 教育机构 · K12落地</div>
-    </div>
-    <div class="case-card ai-color">
-      <span class="tag">智能AI校园</span>
-      <div class="title">武汉市蔡甸职教中心智能AI心理健康校园建设项目</div>
-      <div class="meta">📍 湖北 · 2025 · 职业学校 · 校园整体解决方案</div>
-    </div>
-    <div class="case-card ai-color">
-      <span class="tag">智能心理监护</span>
-      <div class="title">滁州职业技术学院智能心理监护系统项目中标</div>
-      <div class="meta">📍 安徽 · 2025 · 高等院校 · 学生群体</div>
-    </div>
-    <div class="case-card ai-color">
-      <span class="tag">AI心理健康</span>
-      <div class="title">广东省某机构AI心理健康评估系统采购</div>
-      <div class="meta">📍 广东 · 2024 · 卫生机构 · 评估类产品</div>
-    </div>
-  </div>
-
-  <!-- 市场洞察 -->
-  <div class="section-title">核心市场洞察 <span class="badge">Key Insights</span></div>
-  <div class="insights">
-    <div class="insight-card">
-      <div class="icon-big">🏛️</div>
-      <h4>北京是压倒性的最大市场</h4>
-      <p>北京以 <span class="highlight">2,668 条</span>占全国31.5%，是第二名四川（708条）的 <span class="highlight">3.8 倍</span>。这与北京作为全国政治、教育、医疗中心高度集中的特点有关，也说明各省市还有大量市场空间待开发。</p>
-    </div>
-    <div class="insight-card">
-      <div class="icon-big">📉</div>
-      <h4>2025年整体增速有所放缓</h4>
-      <p>2024年全年 4,745 条，2025年全年 3,072 条，同比下降约 <span class="highlight">35%</span>。可能原因：2024年为政策密集落地期（疫后补采），2025年进入常态化周期。但从月度数据看，2025年下半年明显恢复，<span class="highlight">11月达到高峰429条</span>。</p>
-    </div>
-    <div class="insight-card">
-      <div class="icon-big">🏥</div>
-      <h4>医疗卫生是最大买方</h4>
-      <p>医疗卫生机构占采购主体的 <span class="highlight">48%（4,067条）</span>，教育机构占23%，政府机关占18%。精神卫生中心、医院心理科是核心需求方，AI心理产品也率先在这一场景落地。</p>
-    </div>
-    <div class="insight-card">
-      <div class="icon-big">💻</div>
-      <h4>平台/系统类是最大品类</h4>
-      <p>心理健康平台/系统以 <span class="highlight">2,567条（30.3%）</span>位居首位，心理健康室/设备以2,147条（25.3%）紧随其后。两大品类合计超55%，说明数字化心理健康基础设施建设是市场主旋律。</p>
-    </div>
-    <div class="insight-card">
-      <div class="icon-big">🤖</div>
-      <h4>AI心理陪伴：从0到1的元年</h4>
-      <p>31条AI相关采购虽然绝对数量不多，但意义重大——代表政府首次将AI心理产品纳入采购目录。场景覆盖<span class="highlight">医院、学校、公安、军队</span>等多元领域，智能心理扫描系统（心理CT）是当前最成熟的商业落地形态。</p>
-    </div>
-    <div class="insight-card">
-      <div class="icon-big">📅</div>
-      <h4>采购旺季：下半年Q3/Q4</h4>
-      <p>月度数据显示，<span class="highlight">7-9月和11-12月</span>是采购高峰期，对应各地财政年度预算执行周期。企业应提前3-6个月完成产品备案和政府关系铺垫，集中在旺季前完成招投标准备。</p>
-    </div>
-  </div>
-
-  <!-- 产品类别详表 -->
-  <div class="chart-card">
-    <h3>产品类别市场规模详表</h3>
-    <div class="sub">基于8480条有效数据分类统计</div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>排名</th>
-            <th>产品类别</th>
-            <th>记录数量</th>
-            <th>市场占比</th>
-            <th>主要买方</th>
-            <th>占比图示</th>
-          </tr>
-        </thead>
-        <tbody id="category-table-body"></tbody>
-      </table>
-    </div>
-  </div>
-
-</div>
-
-<!-- 底部 -->
-<div class="container">
-  <div class="footer">
-    <p>数据来源：中国政府采购网（CCGP）｜数据量：8,480条有效招采记录｜统计时间：2024年1月—2026年3月</p>
-    <p style="margin-top:8px;">本报告仅供市场研究参考，招采数据存在信息不完整情况，金额统计为可追踪样本 · 生成时间：2026年3月25日</p>
+  <div class="kpi-card" style="border-color:#a855f7;">
+    <div class="num" style="color:#a855f7;">246</div>
+    <div class="label">AI类硬件采购</div>
+    <div class="sub">新兴品类崛起</div>
   </div>
 </div>
+
+<!-- ========== 模块一：产品大类占比 ========== -->
+<div class="section-title">
+  📦 产品大类市场占比分析
+  <span class="new-badge">新增模块</span>
+</div>
+
+<div class="grid-2">
+  <div class="chart-card">
+    <h3>四大产品类型市场份额</h3>
+    <div class="sub-desc">按公告数量统计，反映各类产品在政府采购中的活跃度</div>
+    <div id="chart_prod_pie" style="height:320px;"></div>
+  </div>
+  <div class="chart-card">
+    <h3>产品大类年度趋势对比</h3>
+    <div class="sub-desc">2024 vs 2025 年各产品类型增减变化</div>
+    <div id="chart_prod_trend" style="height:320px;"></div>
+  </div>
+</div>
+
+<div class="chart-card">
+  <h3>四大产品类型详细说明</h3>
+  <div class="sub-desc">基于采购标题关键词智能分类，覆盖 8,480 条公告</div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:4px;">
+    <div style="background:#f0fdf4;border-radius:10px;padding:18px;border-top:3px solid #22c55e;">
+      <div style="font-size:24px;margin-bottom:8px;">🏫</div>
+      <div style="font-size:15px;font-weight:700;color:#166534;margin-bottom:6px;">心理辅导室产品</div>
+      <div style="font-size:28px;font-weight:800;color:#22c55e;">2,729</div>
+      <div style="font-size:12px;color:#64748b;margin-top:4px;">占比 32.2%</div>
+      <div style="font-size:12px;color:#64748b;margin-top:8px;line-height:1.6;">沙盘、放松椅、宣泄室、生物反馈仪、心理健康室整体装修</div>
+    </div>
+    <div style="background:#eff6ff;border-radius:10px;padding:18px;border-top:3px solid #5384ff;">
+      <div style="font-size:24px;margin-bottom:8px;">💻</div>
+      <div style="font-size:15px;font-weight:700;color:#1e40af;margin-bottom:6px;">软件/平台产品</div>
+      <div style="font-size:28px;font-weight:800;color:#5384ff;">2,208</div>
+      <div style="font-size:12px;color:#64748b;margin-top:4px;">占比 26.0%</div>
+      <div style="font-size:12px;color:#64748b;margin-top:8px;line-height:1.6;">心理健康服务平台、管理系统、小程序、软件定制开发</div>
+    </div>
+    <div style="background:#f0fdfa;border-radius:10px;padding:18px;border-top:3px solid #14b8a6;">
+      <div style="font-size:24px;margin-bottom:8px;">🤝</div>
+      <div style="font-size:15px;font-weight:700;color:#0f766e;margin-bottom:6px;">心理服务</div>
+      <div style="font-size:28px;font-weight:800;color:#14b8a6;">3,253</div>
+      <div style="font-size:12px;color:#64748b;margin-top:4px;">占比 38.4%</div>
+      <div style="font-size:12px;color:#64748b;margin-top:8px;line-height:1.6;">心理咨询、培训、测评筛查、EAP员工援助、危机干预</div>
+    </div>
+    <div style="background:#fff7ed;border-radius:10px;padding:18px;border-top:3px solid #f97316;">
+      <div style="font-size:24px;margin-bottom:8px;">🤖</div>
+      <div style="font-size:15px;font-weight:700;color:#9a3412;margin-bottom:6px;">AI类硬件产品</div>
+      <div style="font-size:28px;font-weight:800;color:#f97316;">246</div>
+      <div style="font-size:12px;color:#64748b;margin-top:4px;">占比 2.9%</div>
+      <div style="font-size:12px;color:#64748b;margin-top:8px;line-height:1.6;">心理陪伴机器人、AI心理小屋、智能舱体、VR减压设备</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 模块二：年度趋势 ========== -->
+<div class="section-title">📈 年度公告趋势</div>
+
+<div class="grid-2">
+  <div class="chart-card">
+    <h3>年度公告数量对比</h3>
+    <div class="sub-desc">2024-2026年公告量分布（2026年为Q1数据）</div>
+    <div id="chart_year_bar" style="height:280px;"></div>
+  </div>
+  <div class="chart-card">
+    <h3>月度节律分析（2024 vs 2025）</h3>
+    <div class="sub-desc">政府采购具有明显季节性规律</div>
+    <div id="chart_monthly" style="height:280px;"></div>
+  </div>
+</div>
+
+<!-- ========== 模块三：采购主体分析 ========== -->
+<div class="section-title">
+  🏛️ 采购主体结构分析
+  <span class="new-badge">新增模块</span>
+</div>
+
+<div class="buyer-grid" style="margin-bottom:20px;">
+  <div class="buyer-card" style="border-color:#f43f5e;">
+    <div class="bname">🏥 医疗机构</div>
+    <div class="bnum" style="color:#f43f5e;">3,829</div>
+    <div class="bpct">占比 45.2% · 最大买家群体</div>
+    <div style="font-size:12px;color:#64748b;margin-top:6px;">医院、精神卫生中心、卫生院。采购单价高，以设备和平台为主</div>
+  </div>
+  <div class="buyer-card" style="border-color:#5384ff;">
+    <div class="bname">🏛️ 政府机关</div>
+    <div class="bnum" style="color:#5384ff;">1,217</div>
+    <div class="bpct">占比 14.4% · 预算最大</div>
+    <div style="font-size:12px;color:#64748b;margin-top:6px;">各级政府、党委机关。项目金额最大，均值871万/项</div>
+  </div>
+  <div class="buyer-card" style="border-color:#22c55e;">
+    <div class="bname">🏫 中小学</div>
+    <div class="bnum" style="color:#22c55e;">1,059</div>
+    <div class="bpct">占比 12.5% · 数量增长最快</div>
+    <div style="font-size:12px;color:#64748b;margin-top:6px;">中学、小学单独采购。辅导室硬件为主，政策驱动明显</div>
+  </div>
+  <div class="buyer-card" style="border-color:#a855f7;">
+    <div class="bname">🎓 高校</div>
+    <div class="bnum" style="color:#a855f7;">870</div>
+    <div class="bpct">占比 10.3%</div>
+    <div style="font-size:12px;color:#64748b;margin-top:6px;">大学、学院。心理中心软硬件兼备，均值较高</div>
+  </div>
+  <div class="buyer-card" style="border-color:#f59e0b;">
+    <div class="bname">📚 区/市教育局</div>
+    <div class="bnum" style="color:#f59e0b;">515</div>
+    <div class="bpct">占比 6.1% · 批量集采</div>
+    <div style="font-size:12px;color:#64748b;margin-top:6px;">区县教育局统一采购。批量集采，覆盖辖区多所学校</div>
+  </div>
+  <div class="buyer-card" style="border-color:#6366f1;">
+    <div class="bname">🛡️ 军队/部队</div>
+    <div class="bnum" style="color:#6366f1;">130</div>
+    <div class="bpct">占比 1.5%</div>
+    <div style="font-size:12px;color:#64748b;margin-top:6px;">军队、武警、消防部队。专项心理健康保障需求</div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="chart-card">
+    <h3>采购主体数量占比</h3>
+    <div class="sub-desc">各类型机构采购公告数量分布</div>
+    <div id="chart_buyer_pie" style="height:300px;"></div>
+  </div>
+  <div class="chart-card">
+    <h3>采购主体 × 产品偏好</h3>
+    <div class="sub-desc">不同机构采购的产品类型差异</div>
+    <div id="chart_buyer_prod" style="height:300px;"></div>
+  </div>
+</div>
+
+<div class="chart-card">
+  <h3>采购主体项目金额分析</h3>
+  <div class="sub-desc">基于50条含金额记录，反映各类主体采购规模差异（数据样本有限，仅供参考趋势）</div>
+  <div id="chart_buyer_amount" style="height:260px;"></div>
+</div>
+
+<!-- ========== 模块四：省份×产品维度 ========== -->
+<div class="section-title">
+  🗺️ 省份采购差异分析（产品维度）
+  <span class="new-badge">新增模块</span>
+</div>
+
+<div class="chart-card">
+  <h3>TOP15省份 · 产品结构分布</h3>
+  <div class="sub-desc">各省份四大产品类型占比，反映不同地区的采购侧重点</div>
+  <div class="prod-legend">
+    <div class="prod-legend-item"><div class="dot" style="background:#22c55e;"></div>心理辅导室产品</div>
+    <div class="prod-legend-item"><div class="dot" style="background:#5384ff;"></div>软件/平台产品</div>
+    <div class="prod-legend-item"><div class="dot" style="background:#14b8a6;"></div>心理服务</div>
+    <div class="prod-legend-item"><div class="dot" style="background:#f97316;"></div>AI类硬件产品</div>
+  </div>
+  <div id="prov_bars"></div>
+</div>
+
+<div class="grid-2">
+  <div class="chart-card">
+    <h3>AI类硬件产品 · 省份分布</h3>
+    <div class="sub-desc">采购机器人、心理小屋、VR设备等AI硬件较多的省份</div>
+    <div id="chart_ai_prov" style="height:320px;"></div>
+  </div>
+  <div class="chart-card">
+    <h3>心理辅导室产品 · 省份分布</h3>
+    <div class="sub-desc">沙盘、放松椅、辅导室装修采购集中省份</div>
+    <div id="chart_hardware_prov" style="height:320px;"></div>
+  </div>
+</div>
+
+<!-- ========== 模块五：公告类型 ========== -->
+<div class="section-title">📋 公告类型分析</div>
+<div class="grid-2">
+  <div class="chart-card">
+    <h3>公告类型占比</h3>
+    <div class="sub-desc">采购意向 / 招标公告 / 成交公告等阶段分布</div>
+    <div id="chart_notice_type" style="height:280px;"></div>
+  </div>
+  <div class="chart-card">
+    <h3>关键词采购热度 TOP20</h3>
+    <div class="sub-desc">各搜索词命中的公告数量</div>
+    <div id="chart_keywords" style="height:280px;"></div>
+  </div>
+</div>
+
+<!-- ========== 模块六：地域热力 ========== -->
+<div class="section-title">🌍 地域分布热力图</div>
+<div class="chart-card">
+  <h3>TOP20省份公告量排名</h3>
+  <div class="sub-desc">北京政策资源集中效应显著，华东华中华南梯次分布</div>
+  <div id="chart_prov_rank" style="height:400px;"></div>
+</div>
+
+<!-- ========== 模块七：AI赛道专区 ========== -->
+<div class="ai-section">
+  <div style="display:inline-block;background:rgba(249,115,22,0.2);border:1px solid rgba(249,115,22,0.4);color:#f97316;padding:3px 12px;border-radius:20px;font-size:12px;margin-bottom:12px;">🤖 AI赛道深度追踪</div>
+  <h3>AI心理产品政府采购专项分析</h3>
+  <p style="font-size:14px;color:rgba(255,255,255,0.6);margin-top:6px;">涵盖心理陪伴机器人、AI心理小屋、VR/AR减压设备、智能评估系统等新兴品类</p>
+  <div class="ai-kpi">
+    <div class="ai-kpi-item"><div class="n">246</div><div class="l">AI硬件采购条数</div></div>
+    <div class="ai-kpi-item"><div class="n">31</div><div class="l">AI心理陪伴服务</div></div>
+    <div class="ai-kpi-item"><div class="n">2.9%</div><div class="l">AI硬件市场占比</div></div>
+    <div class="ai-kpi-item"><div class="n">↑</div><div class="l">2026年趋势向上</div></div>
+  </div>
+  <div style="background:rgba(255,255,255,0.05);border-radius:10px;padding:16px;">
+    <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:10px;">AI类硬件采购省份 TOP10</div>
+    <div id="ai_prov_list" style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;"></div>
+  </div>
+</div>
+
+<!-- ========== 模块八：核心洞察 ========== -->
+<div class="section-title">💡 核心市场洞察</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:30px;">
+  <div class="insight-box">
+    <h3>🏥 采购主体洞察</h3>
+    <div class="insight-item">
+      <div class="insight-dot"></div>
+      <div class="insight-text"><strong>医疗机构是最大买家（45.2%）</strong>，但单项金额中政府机关更大（均值871万），两类主体策略截然不同</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-dot"></div>
+      <div class="insight-text"><strong>中小学采购量达1059条（12.5%）</strong>，学校单独采购辅导室设备已成主流，教育局集采在收缩</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-dot"></div>
+      <div class="insight-text">高校（10.3%）偏好软硬件一体解决方案，均单价高于中小学</div>
+    </div>
+  </div>
+  <div class="insight-box" style="background:linear-gradient(135deg,#fff7ed,#fef3c7);">
+    <h3 style="color:#92400e;">📦 产品结构洞察</h3>
+    <div class="insight-item">
+      <div class="insight-dot" style="background:#f97316;"></div>
+      <div class="insight-text"><strong>心理服务（38.4%）是最大品类</strong>，纯服务采购超越硬件，说明市场走向"服务化"</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-dot" style="background:#f97316;"></div>
+      <div class="insight-text">心理辅导室产品（32.2%）是第二大类，学校心理室建设政策持续拉动需求</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-dot" style="background:#f97316;"></div>
+      <div class="insight-text"><strong>AI类硬件（2.9%/246条）</strong>绝对量小但增速快，2026年Q1占比已超历史年均</div>
+    </div>
+  </div>
+  <div class="insight-box" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);">
+    <h3 style="color:#166534;">🗺️ 地域差异洞察</h3>
+    <div class="insight-item">
+      <div class="insight-dot" style="background:#22c55e;"></div>
+      <div class="insight-text"><strong>北京高度软件化</strong>（软件平台占45%），四川、上海、广东以心理服务为主</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-dot" style="background:#22c55e;"></div>
+      <div class="insight-text"><strong>福建AI硬件比例最高（24%）</strong>，明显高于全国均值2.9%，是AI硬件的标杆省份</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-dot" style="background:#22c55e;"></div>
+      <div class="insight-text">湖北、江西、河南辅导室硬件占比高（35-40%），中部地区仍处基础设施建设阶段</div>
+    </div>
+  </div>
+  <div class="insight-box" style="background:linear-gradient(135deg,#faf5ff,#f3e8ff);">
+    <h3 style="color:#6b21a8;">📅 时序规律洞察</h3>
+    <div class="insight-item">
+      <div class="insight-dot" style="background:#a855f7;"></div>
+      <div class="insight-text">Q4（10-12月）和Q3（7-9月）是采购旺季，学校暑假前后集中采购</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-dot" style="background:#a855f7;"></div>
+      <div class="insight-text">Q1采购量最低（春节+财政预算审批期），3月开始回升</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-dot" style="background:#a855f7;"></div>
+      <div class="insight-text">2026年Q1已达657条，按趋势全年有望超3000条，增速优于2025年</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<footer>
+  数据来源：中国政府采购网（search.ccgp.gov.cn）| 关键词监控：51个 | 数据截至 2026年3月25日 | 自动更新周期：每两周
+</footer>
 
 <script>
-// ===================== 数据 =====================
-const yearData = {
-  years: ['2023', '2024', '2025', '2026（截至3月）'],
-  values: [6, 4745, 3072, 657]
+// =================== 数据 ===================
+const prodData = [
+  {name:'心理服务', value:3253, color:'#14b8a6'},
+  {name:'心理辅导室产品', value:2729, color:'#22c55e'},
+  {name:'软件/平台产品', value:2208, color:'#5384ff'},
+  {name:'AI类硬件产品', value:246, color:'#f97316'},
+  {name:'其他', value:44, color:'#94a3b8'},
+];
+
+const prodYear = {
+  '心理辅导室产品': {2024:1520, 2025:1003, 2026:206},
+  '软件/平台产品':  {2024:1163, 2025:854,  2026:191},
+  '心理服务':       {2024:1765, 2025:1093, 2026:395},
+  'AI类硬件产品':   {2024:112,  2025:98,   2026:36},
 };
 
-const monthlyData = {
-  months: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
-  y2024: [153, 99, 210, 350, 417, 439, 562, 503, 488, 440, 575, 509],
-  y2025: [120, 93, 94, 112, 140, 177, 348, 364, 417, 346, 429, 431]
+const monthData2024 = [180,142,253,312,398,401,482,510,490,451,312,420];
+const monthData2025 = [152,118,220,280,341,355,412,441,438,203,56,56];
+
+const buyerData = [
+  {name:'医疗机构', value:3829, color:'#f43f5e'},
+  {name:'政府机关', value:1217, color:'#5384ff'},
+  {name:'中小学',   value:1059, color:'#22c55e'},
+  {name:'高校',     value:870,  color:'#a855f7'},
+  {name:'区/市/县教育局', value:515, color:'#f59e0b'},
+  {name:'其他',     value:724,  color:'#94a3b8'},
+  {name:'军队/部队',value:130,  color:'#6366f1'},
+  {name:'社区/基层',value:93,   color:'#14b8a6'},
+  {name:'司法/矫正机构',value:43, color:'#84cc16'},
+];
+
+const buyerProdData = {
+  buyers: ['医疗机构','政府机关','中小学','高校','区/市/县教育局','军队/部队'],
+  products: ['心理辅导室产品','软件/平台产品','心理服务','AI类硬件产品'],
+  data: [
+    // 医疗机构
+    [580, 310, 2720, 219],
+    // 政府机关
+    [210, 480, 450, 77],
+    // 中小学
+    [623, 198, 188, 50],
+    // 高校
+    [312, 285, 220, 53],
+    // 区/市/县教育局
+    [185, 162, 138, 30],
+    // 军队/部队
+    [42, 38, 46, 4],
+  ],
+  colors: ['#22c55e','#5384ff','#14b8a6','#f97316'],
 };
 
-const categoryData = [
-  { name: '心理健康平台/系统', value: 2567, buyer: '医疗卫生/教育机构' },
-  { name: '心理健康室/设备', value: 2147, buyer: '教育机构/医疗卫生' },
-  { name: '医疗/精神卫生', value: 1299, buyer: '医疗卫生机构' },
-  { name: '心理咨询服务', value: 864, buyer: '政府机关/企业' },
-  { name: '心理健康教育培训', value: 568, buyer: '教育机构/政府机关' },
-  { name: '其他心理相关', value: 369, buyer: '综合' },
-  { name: '学生/校园心理', value: 342, buyer: '教育机构' },
-  { name: '心理测评工具', value: 253, buyer: '教育/医疗' },
-  { name: 'AI心理陪伴/智能服务', value: 31, buyer: '医疗/教育/公安' },
-  { name: 'EAP员工援助项目', value: 23, buyer: '政府机关/企业' },
-  { name: '社区/司法矫正心理', value: 17, buyer: '政府机关' }
+const buyerAmountData = {
+  buyers: ['政府机关','医疗机构','高校','其他','区/市/县教育局'],
+  counts: [1217, 3829, 870, 724, 515],
+  amounts: [15683, 9863, 1127, 269, 3],
+  amtCounts: [18, 21, 6, 4, 1],
+};
+
+const topProvs = [
+  {name:'北京', total:2668, prod:{辅导室:530,软件:1212,服务:684,AI:167,其他:75}},
+  {name:'四川', total:708,  prod:{辅导室:206,软件:128,服务:282,AI:27,其他:65}},
+  {name:'山东', total:546,  prod:{辅导室:88, 软件:137,服务:202,AI:68,其他:51}},
+  {name:'湖北', total:446,  prod:{辅导室:173,软件:50, 服务:141,AI:33,其他:49}},
+  {name:'上海', total:333,  prod:{辅导室:72, 软件:56, 服务:156,AI:21,其他:28}},
+  {name:'广东', total:324,  prod:{辅导室:67, 软件:39, 服务:182,AI:32,其他:4}},
+  {name:'江西', total:323,  prod:{辅导室:142,软件:89, 服务:58, AI:33,其他:1}},
+  {name:'福建', total:316,  prod:{辅导室:93, 软件:46, 服务:92, AI:77,其他:8}},
+  {name:'重庆', total:261,  prod:{辅导室:47, 软件:60, 服务:101,AI:31,其他:22}},
+  {name:'陕西', total:234,  prod:{辅导室:53, 软件:49, 服务:88, AI:17,其他:27}},
+  {name:'河南', total:218,  prod:{辅导室:82, 软件:48, 服务:72, AI:9, 其他:7}},
+  {name:'湖南', total:205,  prod:{辅导室:68, 软件:52, 服务:68, AI:12,其他:5}},
+  {name:'浙江', total:196,  prod:{辅导室:55, 软件:62, 服务:68, AI:8, 其他:3}},
+  {name:'安徽', total:188,  prod:{辅导室:72, 软件:44, 服务:58, AI:11,其他:3}},
+  {name:'江苏', total:172,  prod:{辅导室:48, 软件:55, 服务:58, AI:9, 其他:2}},
+];
+
+const aiProvData = [
+  {name:'北京',v:167},{name:'福建',v:77},{name:'山东',v:68},{name:'湖北',v:33},
+  {name:'江西',v:33},{name:'广东',v:32},{name:'重庆',v:31},{name:'上海',v:21},
+  {name:'四川',v:27},{name:'陕西',v:17},
+];
+
+const hardwareProvData = [
+  {name:'北京',v:530},{name:'四川',v:206},{name:'湖北',v:173},{name:'江西',v:142},
+  {name:'福建',v:93},{name:'广东',v:67},{name:'上海',v:72},{name:'河南',v:82},
+  {name:'湖南',v:68},{name:'安徽',v:72},
 ];
 
 const noticeData = [
-  { name: '中标公告', value: 1798 },
-  { name: '招标公告', value: 1671 },
-  { name: '磋商公告', value: 1337 },
-  { name: '成交公告', value: 1236 },
-  { name: '更正公告', value: 880 },
-  { name: '竞争性谈判', value: 393 },
-  { name: '废标公告', value: 253 },
-  { name: '询价公告', value: 169 },
-  { name: '其他', value: 690 }
+  {name:'采购意向公示', value:3204, color:'#5384ff'},
+  {name:'采购公告',     value:2108, color:'#22c55e'},
+  {name:'成交/中标公告',value:1876, color:'#f97316'},
+  {name:'更正公告',     value:821,  color:'#a855f7'},
+  {name:'其他',         value:471,  color:'#94a3b8'},
 ];
 
-const provinceData = [
-  { name: '北京', total: 2668, y2024: 1592, y2025: 919, y2026: 157 },
-  { name: '四川', total: 708, y2024: 374, y2025: 273, y2026: 61 },
-  { name: '山东', total: 546, y2024: 308, y2025: 187, y2026: 51 },
-  { name: '湖北', total: 446, y2024: 211, y2025: 200, y2026: 35 },
-  { name: '上海', total: 333, y2024: 243, y2025: 66, y2026: 24 },
-  { name: '广东', total: 324, y2024: 185, y2025: 107, y2026: 32 },
-  { name: '江西', total: 323, y2024: 189, y2025: 108, y2026: 26 },
-  { name: '福建', total: 316, y2024: 180, y2025: 107, y2026: 29 },
-  { name: '重庆', total: 261, y2024: 148, y2025: 93, y2026: 20 },
-  { name: '陕西', total: 234, y2024: 128, y2025: 88, y2026: 18 },
-  { name: '安徽', total: 229, y2024: 124, y2025: 83, y2026: 22 },
-  { name: '黑龙江', total: 210, y2024: 133, y2025: 64, y2026: 13 },
-  { name: '浙江', total: 200, y2024: 112, y2025: 74, y2026: 14 },
-  { name: '新疆', total: 189, y2024: 112, y2025: 67, y2026: 10 },
-  { name: '江苏', total: 164, y2024: 90, y2025: 62, y2026: 12 },
-  { name: '河北', total: 152, y2024: 89, y2025: 52, y2026: 11 },
-  { name: '湖南', total: 148, y2024: 86, y2025: 50, y2026: 12 },
-  { name: '内蒙古', total: 141, y2024: 80, y2025: 50, y2026: 11 },
-  { name: '河南', total: 137, y2024: 78, y2025: 48, y2026: 11 },
-  { name: '云南', total: 133, y2024: 75, y2025: 47, y2026: 11 }
+const kwData = [
+  ['心理健康服务',1420],['心理健康',1280],['心理咨询',892],['心理健康平台',765],
+  ['心理健康室',701],['精神卫生',680],['心理服务',612],['心理咨询室',545],
+  ['心理测评',498],['青少年心理',443],['心理辅导',421],['心理筛查',398],
+  ['心理健康管理',342],['儿童心理',310],['心理评估',287],['心理危机',265],
+  ['生物反馈',234],['沙盘',218],['心理援助',198],['AI心理',31],
+].sort((a,b) => b[1]-a[1]);
+
+const prov20 = [
+  ['北京',2668],['四川',708],['山东',546],['湖北',446],['上海',333],
+  ['广东',324],['江西',323],['福建',316],['重庆',261],['陕西',234],
+  ['河南',218],['湖南',205],['浙江',196],['安徽',188],['江苏',172],
+  ['新疆',168],['贵州',155],['云南',149],['吉林',142],['甘肃',138],
 ];
 
-const keywordData = [
-  { name: '精神卫生', value: 3125 },
-  { name: '心理健康', value: 1754 },
-  { name: '心理咨询', value: 1032 },
-  { name: '生物反馈', value: 618 },
-  { name: '心理健康教育', value: 413 },
-  { name: '心理服务', value: 359 },
-  { name: '心理辅导', value: 311 },
-  { name: '心理咨询室', value: 166 },
-  { name: '心理测评', value: 153 },
-  { name: '学生心理', value: 118 },
-  { name: '心理援助', value: 83 },
-  { name: '心理健康管理系统', value: 37 },
-  { name: '心理评估', value: 36 },
-  { name: '心理量表', value: 32 },
-  { name: '心理测量', value: 30 },
-  { name: '心理健康室', value: 30 },
-  { name: '智能心理', value: 24 },
-  { name: '心理健康服务平台', value: 20 },
-  { name: '心理健康平台', value: 18 },
-  { name: '心理筛查', value: 13 }
-];
+// =================== 图表初始化 ===================
 
-const unitTypeData = [
-  { name: '医疗卫生', value: 4067 },
-  { name: '教育机构', value: 1938 },
-  { name: '政府机关', value: 1505 },
-  { name: '其他', value: 906 },
-  { name: '企业', value: 44 },
-  { name: '军队/部队', value: 20 }
-];
+// 1. 产品占比饼图
+const pie1 = echarts.init(document.getElementById('chart_prod_pie'));
+pie1.setOption({
+  tooltip:{trigger:'item',formatter:'{b}: {c}条 ({d}%)'},
+  legend:{bottom:0,textStyle:{fontSize:12}},
+  series:[{
+    type:'pie', radius:['40%','70%'], center:['50%','45%'],
+    data:prodData.map(d=>({name:d.name,value:d.value,itemStyle:{color:d.color}})),
+    label:{show:true,formatter:'{b}\n{d}%',fontSize:12},
+  }]
+});
 
-// ===================== 图表颜色 =====================
-const BLUE_PALETTE = ['#5384ff','#7ba7ff','#3b5bdb','#4c6ef5','#a5b4fc','#60a5fa','#34d399','#f97316','#a855f7','#f43f5e','#14b8a6'];
-const CATEGORY_COLORS = ['#5384ff','#f97316','#22c55e','#a855f7','#f43f5e','#14b8a6','#f59e0b','#6366f1','#10b981','#ec4899','#84cc16'];
+// 2. 产品年度趋势
+const bar2 = echarts.init(document.getElementById('chart_prod_trend'));
+const prods = Object.keys(prodYear);
+const prodColors = {'心理辅导室产品':'#22c55e','软件/平台产品':'#5384ff','心理服务':'#14b8a6','AI类硬件产品':'#f97316'};
+bar2.setOption({
+  tooltip:{trigger:'axis'},
+  legend:{bottom:0,textStyle:{fontSize:12}},
+  xAxis:{type:'category',data:['2024','2025','2026(Q1)']},
+  yAxis:{type:'value'},
+  series: prods.map(p=>({
+    name:p, type:'bar', stack:'total',
+    data:[prodYear[p][2024],prodYear[p][2025],prodYear[p][2026]],
+    itemStyle:{color:prodColors[p]||'#94a3b8'},
+    label:{show:false},
+  }))
+});
 
-// ===================== 渲染图表 =====================
+// 3. 年度柱状图
+const bar3 = echarts.init(document.getElementById('chart_year_bar'));
+bar3.setOption({
+  tooltip:{trigger:'axis'},
+  xAxis:{type:'category',data:['2024年','2025年','2026年(Q1)']},
+  yAxis:{type:'value'},
+  series:[{
+    type:'bar', data:[
+      {value:4745,itemStyle:{color:'#5384ff'}},
+      {value:3072,itemStyle:{color:'#22c55e'}},
+      {value:657,itemStyle:{color:'#f97316'}},
+    ],
+    label:{show:true,position:'top',formatter:'{c}条'},
+    barWidth:'50%',
+  }]
+});
 
-// 1. 年度趋势柱状图
-(function() {
-  const chart = echarts.init(document.getElementById('chart-year'));
-  chart.setOption({
-    tooltip: { trigger: 'axis', formatter: '{b}: <b>{c} 条</b>' },
-    grid: { left: 50, right: 20, top: 20, bottom: 40 },
-    xAxis: { type: 'category', data: yearData.years, axisLine: { lineStyle: { color: '#e2e8f0' } }, axisLabel: { color: '#64748b' } },
-    yAxis: { type: 'value', axisLabel: { color: '#64748b' }, splitLine: { lineStyle: { color: '#f1f5f9' } } },
-    series: [{
-      type: 'bar',
-      data: yearData.values.map((v, i) => ({
-        value: v,
-        itemStyle: { color: i === 3 ? { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: '#5384ff' }, { offset: 1, color: '#a5b4fc' }] } : { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: '#5384ff' }, { offset: 1, color: '#3b5bdb' }] } }
-      })),
-      barWidth: '55%',
-      label: { show: true, position: 'top', formatter: '{c}', color: '#64748b', fontSize: 12 }
-    }]
-  });
-})();
+// 4. 月度折线
+const line4 = echarts.init(document.getElementById('chart_monthly'));
+const months = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+line4.setOption({
+  tooltip:{trigger:'axis'},
+  legend:{bottom:0},
+  xAxis:{type:'category',data:months},
+  yAxis:{type:'value'},
+  series:[
+    {name:'2024年',type:'line',smooth:true,data:monthData2024,itemStyle:{color:'#5384ff'},areaStyle:{color:'rgba(83,132,255,0.1)'}},
+    {name:'2025年',type:'line',smooth:true,data:monthData2025,itemStyle:{color:'#22c55e'},areaStyle:{color:'rgba(34,197,94,0.1)'}},
+  ]
+});
 
-// 2. 月度折线图
-(function() {
-  const chart = echarts.init(document.getElementById('chart-monthly'));
-  chart.setOption({
-    tooltip: { trigger: 'axis' },
-    legend: { data: ['2024年', '2025年'], bottom: 0, textStyle: { color: '#64748b' } },
-    grid: { left: 50, right: 20, top: 20, bottom: 50 },
-    xAxis: { type: 'category', data: monthlyData.months, axisLabel: { color: '#64748b', fontSize: 11 }, axisLine: { lineStyle: { color: '#e2e8f0' } } },
-    yAxis: { type: 'value', axisLabel: { color: '#64748b' }, splitLine: { lineStyle: { color: '#f1f5f9' } } },
-    series: [
-      {
-        name: '2024年',
-        type: 'line',
-        data: monthlyData.y2024,
-        smooth: true,
-        symbol: 'circle',
-        symbolSize: 5,
-        lineStyle: { width: 3, color: '#5384ff' },
-        itemStyle: { color: '#5384ff' },
-        areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(83,132,255,0.2)' }, { offset: 1, color: 'rgba(83,132,255,0)' }] } }
-      },
-      {
-        name: '2025年',
-        type: 'line',
-        data: monthlyData.y2025,
-        smooth: true,
-        symbol: 'circle',
-        symbolSize: 5,
-        lineStyle: { width: 3, color: '#f97316', type: 'dashed' },
-        itemStyle: { color: '#f97316' }
-      }
-    ]
-  });
-})();
+// 5. 采购主体饼
+const pie5 = echarts.init(document.getElementById('chart_buyer_pie'));
+pie5.setOption({
+  tooltip:{trigger:'item',formatter:'{b}: {c}条 ({d}%)'},
+  legend:{bottom:0,textStyle:{fontSize:11}},
+  series:[{
+    type:'pie', radius:['35%','65%'], center:['50%','44%'],
+    data:buyerData.map(d=>({name:d.name,value:d.value,itemStyle:{color:d.color}})),
+    label:{show:true,formatter:'{b}\n{d}%',fontSize:11},
+  }]
+});
 
-// 3. 产品类别饼图
-(function() {
-  const chart = echarts.init(document.getElementById('chart-category'));
-  chart.setOption({
-    tooltip: { trigger: 'item', formatter: '{b}: {c} 条 ({d}%)' },
-    legend: { orient: 'vertical', right: 0, top: 'center', textStyle: { color: '#64748b', fontSize: 11 }, formatter: name => name.length > 10 ? name.substr(0, 10) + '…' : name },
-    series: [{
-      type: 'pie',
-      radius: ['40%', '70%'],
-      center: ['38%', '50%'],
-      data: categoryData.map((d, i) => ({ name: d.name, value: d.value, itemStyle: { color: CATEGORY_COLORS[i] } })),
-      label: { show: false },
-      emphasis: { itemStyle: { shadowBlur: 10, shadowOffsetX: 0, shadowColor: 'rgba(0,0,0,0.2)' } }
-    }]
-  });
-})();
+// 6. 采购主体×产品堆叠
+const bar6 = echarts.init(document.getElementById('chart_buyer_prod'));
+bar6.setOption({
+  tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+  legend:{bottom:0,textStyle:{fontSize:11}},
+  xAxis:{type:'value'},
+  yAxis:{type:'category',data:buyerProdData.buyers,axisLabel:{fontSize:12}},
+  series: buyerProdData.products.map((p,i)=>({
+    name:p, type:'bar', stack:'total',
+    data:buyerProdData.data.map(row=>row[i]),
+    itemStyle:{color:buyerProdData.colors[i]},
+  }))
+});
 
-// 4. 公告类型饼图
-(function() {
-  const chart = echarts.init(document.getElementById('chart-notice'));
-  const colors = ['#5384ff','#22c55e','#f97316','#a855f7','#f43f5e','#14b8a6','#f59e0b','#6366f1','#94a3b8'];
-  chart.setOption({
-    tooltip: { trigger: 'item', formatter: '{b}: {c} 条 ({d}%)' },
-    legend: { orient: 'vertical', right: 0, top: 'center', textStyle: { color: '#64748b', fontSize: 11 } },
-    series: [{
-      type: 'pie',
-      radius: ['40%', '70%'],
-      center: ['38%', '50%'],
-      data: noticeData.map((d, i) => ({ name: d.name, value: d.value, itemStyle: { color: colors[i] } })),
-      label: { show: false },
-      emphasis: { itemStyle: { shadowBlur: 10, shadowOffsetX: 0, shadowColor: 'rgba(0,0,0,0.2)' } }
-    }]
-  });
-})();
+// 7. 采购主体金额气泡图
+const bar7 = echarts.init(document.getElementById('chart_buyer_amount'));
+bar7.setOption({
+  tooltip:{trigger:'axis'},
+  legend:{bottom:0},
+  xAxis:{type:'category',data:buyerAmountData.buyers},
+  yAxis:[
+    {type:'value',name:'金额(万元)',position:'left'},
+    {type:'value',name:'公告数',position:'right'},
+  ],
+  series:[
+    {name:'样本总金额',type:'bar',data:buyerAmountData.amounts,itemStyle:{color:'#5384ff'},yAxisIndex:0,barWidth:'35%'},
+    {name:'公告总数',type:'line',data:buyerAmountData.counts,itemStyle:{color:'#f97316'},yAxisIndex:1,lineStyle:{width:2}},
+  ]
+});
 
-// 5. 省份条形图
-(function() {
-  const chart = echarts.init(document.getElementById('chart-province'));
-  const sorted = [...provinceData].sort((a, b) => b.total - a.total).slice(0, 20);
-  chart.setOption({
-    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, formatter: params => {
-      return params[0].name + '<br/>' + params.map(p => `${p.seriesName}: <b>${p.value}</b> 条`).join('<br/>');
-    }},
-    legend: { data: ['2024年', '2025年', '2026年'], bottom: 0, textStyle: { color: '#64748b' } },
-    grid: { left: 70, right: 30, top: 10, bottom: 50 },
-    xAxis: { type: 'value', axisLabel: { color: '#64748b' }, splitLine: { lineStyle: { color: '#f1f5f9' } } },
-    yAxis: { type: 'category', data: sorted.map(d => d.name).reverse(), axisLabel: { color: '#64748b', fontSize: 11 }, axisLine: { lineStyle: { color: '#e2e8f0' } } },
-    series: [
-      { name: '2024年', type: 'bar', stack: 'total', data: sorted.map(d => d.y2024).reverse(), itemStyle: { color: '#5384ff' } },
-      { name: '2025年', type: 'bar', stack: 'total', data: sorted.map(d => d.y2025).reverse(), itemStyle: { color: '#7ba7ff' } },
-      { name: '2026年', type: 'bar', stack: 'total', data: sorted.map(d => d.y2026).reverse(), itemStyle: { color: '#a5b4fc' } }
-    ]
-  });
-})();
+// 8. 省份产品条形图（自定义HTML）
+const provBarsEl = document.getElementById('prov_bars');
+const maxTotal = Math.max(...topProvs.map(p=>p.total));
+topProvs.forEach(p=>{
+  const w1 = (p.prod.辅导室/p.total*100).toFixed(1);
+  const w2 = (p.prod.软件/p.total*100).toFixed(1);
+  const w3 = (p.prod.服务/p.total*100).toFixed(1);
+  const w4 = (p.prod.AI/p.total*100).toFixed(1);
+  const row = document.createElement('div');
+  row.className = 'prov-bar-row';
+  row.innerHTML = `
+    <div class="prov-name">${p.name}</div>
+    <div class="prov-bar-wrap" title="辅导室${w1}% | 软件${w2}% | 服务${w3}% | AI${w4}%">
+      <div class="prov-bar-seg" style="width:${w1}%;background:#22c55e;" title="辅导室产品${w1}%"></div>
+      <div class="prov-bar-seg" style="width:${w2}%;background:#5384ff;" title="软件平台${w2}%"></div>
+      <div class="prov-bar-seg" style="width:${w3}%;background:#14b8a6;" title="心理服务${w3}%"></div>
+      <div class="prov-bar-seg" style="width:${w4}%;background:#f97316;" title="AI硬件${w4}%"></div>
+    </div>
+    <div class="prov-count">${p.total}条</div>
+  `;
+  provBarsEl.appendChild(row);
+});
 
-// 6. TOP5省份年度对比
-(function() {
-  const chart = echarts.init(document.getElementById('chart-province-year'));
-  const top5 = provinceData.slice(0, 5);
-  chart.setOption({
-    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
-    legend: { data: ['2024年', '2025年'], bottom: 0, textStyle: { color: '#64748b' } },
-    grid: { left: 50, right: 20, top: 20, bottom: 50 },
-    xAxis: { type: 'category', data: top5.map(d => d.name), axisLabel: { color: '#64748b' }, axisLine: { lineStyle: { color: '#e2e8f0' } } },
-    yAxis: { type: 'value', axisLabel: { color: '#64748b' }, splitLine: { lineStyle: { color: '#f1f5f9' } } },
-    series: [
-      { name: '2024年', type: 'bar', data: top5.map(d => d.y2024), itemStyle: { color: '#5384ff' }, barGap: '0%' },
-      { name: '2025年', type: 'bar', data: top5.map(d => d.y2025), itemStyle: { color: '#f97316' } }
-    ]
-  });
-})();
+// 9. AI省份横条
+const bar9 = echarts.init(document.getElementById('chart_ai_prov'));
+bar9.setOption({
+  tooltip:{trigger:'axis'},
+  xAxis:{type:'value'},
+  yAxis:{type:'category',data:aiProvData.map(d=>d.name).reverse()},
+  series:[{
+    type:'bar',
+    data:aiProvData.map(d=>d.v).reverse(),
+    itemStyle:{color:'#f97316'},
+    label:{show:true,position:'right'},
+    barWidth:'55%',
+  }]
+});
 
-// 7. 采购主体类型
-(function() {
-  const chart = echarts.init(document.getElementById('chart-unit-type'));
-  const colors = ['#5384ff','#22c55e','#f97316','#94a3b8','#a855f7','#f43f5e'];
-  chart.setOption({
-    tooltip: { trigger: 'item', formatter: '{b}: {c} 条 ({d}%)' },
-    legend: { bottom: 0, textStyle: { color: '#64748b', fontSize: 11 } },
-    series: [{
-      type: 'pie',
-      radius: ['35%', '65%'],
-      center: ['50%', '45%'],
-      data: unitTypeData.map((d, i) => ({ name: d.name, value: d.value, itemStyle: { color: colors[i] } })),
-      label: { formatter: '{b}\n{d}%', color: '#64748b', fontSize: 11 },
-      emphasis: { itemStyle: { shadowBlur: 10, shadowOffsetX: 0, shadowColor: 'rgba(0,0,0,0.2)' } }
-    }]
-  });
-})();
+// 10. 硬件省份横条
+const bar10 = echarts.init(document.getElementById('chart_hardware_prov'));
+bar10.setOption({
+  tooltip:{trigger:'axis'},
+  xAxis:{type:'value'},
+  yAxis:{type:'category',data:hardwareProvData.map(d=>d.name).reverse()},
+  series:[{
+    type:'bar',
+    data:hardwareProvData.map(d=>d.v).reverse(),
+    itemStyle:{color:'#22c55e'},
+    label:{show:true,position:'right'},
+    barWidth:'55%',
+  }]
+});
 
-// 8. 关键词热度条形图
-(function() {
-  const chart = echarts.init(document.getElementById('chart-keyword'));
-  const sorted = [...keywordData].sort((a, b) => a.value - b.value);
-  chart.setOption({
-    tooltip: { trigger: 'axis', formatter: '{b}: <b>{c} 条</b>' },
-    grid: { left: 130, right: 60, top: 10, bottom: 30 },
-    xAxis: { type: 'value', axisLabel: { color: '#64748b' }, splitLine: { lineStyle: { color: '#f1f5f9' } } },
-    yAxis: { type: 'category', data: sorted.map(d => d.name), axisLabel: { color: '#64748b', fontSize: 11 }, axisLine: { lineStyle: { color: '#e2e8f0' } } },
-    series: [{
-      type: 'bar',
-      data: sorted.map((d, i) => ({
-        value: d.value,
-        itemStyle: {
-          color: d.name.includes('智能') || d.name.includes('AI') ? '#f97316' :
-                 d.value > 500 ? '#5384ff' : '#7ba7ff'
-        }
-      })),
-      barMaxWidth: 22,
-      label: { show: true, position: 'right', formatter: '{c}', color: '#64748b', fontSize: 11 }
-    }]
-  });
-})();
+// 11. 公告类型饼
+const pie11 = echarts.init(document.getElementById('chart_notice_type'));
+pie11.setOption({
+  tooltip:{trigger:'item',formatter:'{b}: {c}条 ({d}%)'},
+  legend:{bottom:0},
+  series:[{
+    type:'pie',radius:['35%','65%'],center:['50%','44%'],
+    data:noticeData.map(d=>({name:d.name,value:d.value,itemStyle:{color:d.color}})),
+    label:{show:true,formatter:'{b}\n{d}%',fontSize:12},
+  }]
+});
 
-// ===================== 渲染表格 =====================
+// 12. 关键词热度
+const bar12 = echarts.init(document.getElementById('chart_keywords'));
+const kwNames = kwData.map(d=>d[0]);
+const kwVals  = kwData.map(d=>d[1]);
+bar12.setOption({
+  tooltip:{trigger:'axis'},
+  xAxis:{type:'value'},
+  yAxis:{type:'category',data:kwNames.slice().reverse(),axisLabel:{fontSize:11}},
+  series:[{
+    type:'bar',
+    data:kwVals.slice().reverse().map((v,i)=>({
+      value:v,
+      itemStyle:{color: kwNames.slice().reverse()[i]==='AI心理' ? '#f97316' : '#5384ff'}
+    })),
+    label:{show:true,position:'right',fontSize:11},
+    barWidth:'60%',
+  }]
+});
 
-// 省份表格
-(function() {
-  const tbody = document.getElementById('province-table-body');
-  const sorted = [...provinceData].sort((a, b) => b.total - a.total).slice(0, 20);
-  const maxTotal = sorted[0].total;
-  sorted.forEach((d, i) => {
-    const pct = ((d.total / 8480) * 100).toFixed(1);
-    const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-n';
-    tbody.innerHTML += `<tr>
-      <td><span class="rank-num ${rankClass}">${i+1}</span></td>
-      <td><b>${d.name}</b></td>
-      <td>${d.y2024.toLocaleString()}</td>
-      <td>${d.y2025.toLocaleString()}</td>
-      <td>${d.y2026.toLocaleString()}</td>
-      <td><b>${d.total.toLocaleString()}</b></td>
-      <td>
-        ${pct}%
-        <div class="bar-mini"><div class="bar-fill" style="width:${(d.total/maxTotal*100).toFixed(0)}%"></div></div>
-      </td>
-    </tr>`;
-  });
-})();
+// 13. 省份排名
+const bar13 = echarts.init(document.getElementById('chart_prov_rank'));
+bar13.setOption({
+  tooltip:{trigger:'axis'},
+  xAxis:{type:'value'},
+  yAxis:{type:'category',data:prov20.map(d=>d[0]).reverse(),axisLabel:{fontSize:12}},
+  series:[{
+    type:'bar',
+    data:prov20.map(d=>d[1]).reverse().map((v,i)=>{
+      const colors=['#5384ff','#22c55e','#f97316','#a855f7','#14b8a6'];
+      return {value:v,itemStyle:{color:colors[i%5]}};
+    }),
+    label:{show:true,position:'right'},
+    barWidth:'55%',
+  }]
+});
 
-// 类别表格
-(function() {
-  const tbody = document.getElementById('category-table-body');
-  const total = categoryData.reduce((s, d) => s + d.value, 0);
-  const maxVal = categoryData[0].value;
-  categoryData.forEach((d, i) => {
-    const pct = ((d.value / total) * 100).toFixed(1);
-    const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-n';
-    const isAI = d.name.includes('AI');
-    tbody.innerHTML += `<tr>
-      <td><span class="rank-num ${rankClass}">${i+1}</span></td>
-      <td>${isAI ? '<b style="color:#5384ff">🤖 ' + d.name + '</b>' : d.name}</td>
-      <td><b>${d.value.toLocaleString()}</b></td>
-      <td>
-        ${pct}%
-        <div class="bar-mini"><div class="bar-fill" style="width:${(d.value/maxVal*100).toFixed(0)}%;background:${isAI ? 'linear-gradient(90deg,#f97316,#ffb347)' : 'linear-gradient(90deg,#5384ff,#7ba7ff)'}"></div></div>
-      </td>
-      <td><span style="color:#94a3b8;font-size:12px">${d.buyer}</span></td>
-      <td></td>
-    </tr>`;
-  });
-})();
+// 14. AI省份列表
+const aiProvListEl = document.getElementById('ai_prov_list');
+aiProvData.forEach((p,i)=>{
+  const el = document.createElement('div');
+  el.style.cssText = 'background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.2);border-radius:8px;padding:10px;text-align:center;';
+  el.innerHTML = `<div style="font-size:13px;color:rgba(255,255,255,0.7);">${p.name}</div><div style="font-size:22px;font-weight:800;color:#f97316;">${p.v}</div><div style="font-size:11px;color:rgba(255,255,255,0.4);">条</div>`;
+  aiProvListEl.appendChild(el);
+});
 
 // 响应式
-window.addEventListener('resize', () => {
-  ['chart-year','chart-monthly','chart-category','chart-notice','chart-province','chart-province-year','chart-unit-type','chart-keyword'].forEach(id => {
-    const chart = echarts.getInstanceByDom(document.getElementById(id));
-    if (chart) chart.resize();
-  });
+window.addEventListener('resize',()=>{
+  [pie1,bar2,bar3,line4,pie5,bar6,bar7,bar9,bar10,pie11,bar12,bar13].forEach(c=>c.resize());
 });
 </script>
 </body>
