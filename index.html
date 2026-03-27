@@ -16,15 +16,22 @@ body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: #f
   content:''; position:absolute; top:-50%; right:-10%; width:600px; height:600px;
   border-radius:50%; background:radial-gradient(circle, rgba(83,132,255,0.15) 0%, transparent 70%);
 }
+.hero::after {
+  content:''; position:absolute; bottom:-30%; left:5%; width:400px; height:400px;
+  border-radius:50%; background:radial-gradient(circle, rgba(249,115,22,0.08) 0%, transparent 70%);
+}
 .hero-tag {
   display:inline-block; background:rgba(83,132,255,0.25); border:1px solid rgba(83,132,255,0.5);
   color:#7ba7ff; padding:4px 14px; border-radius:20px; font-size:13px; margin-bottom:20px; letter-spacing:1px;
+  position:relative; z-index:1;
 }
-.hero h1 { font-size:36px; font-weight:700; line-height:1.3; margin-bottom:12px; }
-.hero p { font-size:16px; color:rgba(255,255,255,0.65); margin-bottom:30px; }
-.hero-stats { display:flex; gap:40px; flex-wrap:wrap; }
+.hero h1 { font-size:36px; font-weight:700; line-height:1.3; margin-bottom:12px; position:relative; z-index:1; }
+.hero p { font-size:16px; color:rgba(255,255,255,0.65); margin-bottom:30px; position:relative; z-index:1; }
+.hero-stats { display:flex; gap:40px; flex-wrap:wrap; position:relative; z-index:1; }
 .hero-stat { text-align:center; }
 .hero-stat .num { font-size:38px; font-weight:800; color:#5384ff; line-height:1; }
+.hero-stat .num.orange { color:#f97316; }
+.hero-stat .num.green { color:#22c55e; }
 .hero-stat .label { font-size:13px; color:rgba(255,255,255,0.55); margin-top:6px; }
 .container { max-width:1400px; margin:0 auto; padding:30px; }
 .section-title {
@@ -134,6 +141,83 @@ footer { text-align:center; padding:40px; color:#94a3b8; font-size:13px; }
     <div class="num" style="color:#a855f7;">246</div>
     <div class="label">AI类硬件采购</div>
     <div class="sub">新兴品类崛起</div>
+  </div>
+</div>
+
+<div class="section-title">
+  🏆 中标公司竞争格局分析
+  <span class="new-badge">核心新增</span>
+</div>
+
+<div class="grid-2" style="margin-bottom:20px;">
+  <div class="chart-card">
+    <h3>中标公司 Top20 · 按中标次数</h3>
+    <div class="sub-desc">2024-2026年政府采购中标次数最多的企业（含全部公告类型）</div>
+    <div id="chart_company_count" style="height:460px;"></div>
+  </div>
+  <div class="chart-card">
+    <h3>中标公司 Top20 · 按成交金额</h3>
+    <div class="sub-desc">合理金额范围内（<5000万）成交总额最大的企业</div>
+    <div id="chart_company_amount" style="height:460px;"></div>
+  </div>
+</div>
+
+<!-- 中标公司详细排行表 -->
+<div class="chart-card">
+  <h3>中标次数 Top30 详细排行榜</h3>
+  <div class="sub-desc">覆盖全部2,699条有效中标记录，注明所在地区和主要产品方向</div>
+  <div class="rank-table-wrap">
+    <table class="data-table" id="company_rank_table">
+      <thead>
+        <tr>
+          <th style="width:40px;text-align:center;">排名</th>
+          <th>公司名称</th>
+          <th style="text-align:center;">注册地</th>
+          <th style="text-align:center;">中标次数</th>
+          <th style="text-align:right;">成交金额(万)</th>
+          <th>主要产品方向</th>
+        </tr>
+      </thead>
+      <tbody id="company_rank_tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ========== 新模块：地区分布深度分析 ========== -->
+<div class="section-title">
+  🗺️ 省份市场规模深度分析
+  <span class="new-badge">核心新增</span>
+</div>
+
+<div class="grid-2">
+  <div class="chart-card">
+    <h3>TOP20省份 · 公告数量排名</h3>
+    <div class="sub-desc">北京以压倒性数量领跑，主因央企/全国机构集中采购在京登记</div>
+    <div id="chart_prov_count" style="height:420px;"></div>
+  </div>
+  <div class="chart-card">
+    <h3>TOP20省份 · 合理成交金额排名</h3>
+    <div class="sub-desc">四川总金额超4.3亿居首，广东、山东单次均价较高</div>
+    <div id="chart_prov_amount" style="height:420px;"></div>
+  </div>
+</div>
+
+<div class="chart-card">
+  <h3>省份多维对比 · 公告量 vs 成交金额 vs 平均单价</h3>
+  <div class="sub-desc">各省采购活跃度与规模并非正相关：北京公告多但均价中等；甘肃贵州均价最高</div>
+  <div id="chart_prov_scatter" style="height:400px;"></div>
+</div>
+
+<div class="grid-2">
+  <div class="chart-card">
+    <h3>省份成交金额热力条</h3>
+    <div class="sub-desc">相对成交规模可视化，前25省份</div>
+    <div id="prov_amount_bars" style="padding-top:8px;"></div>
+  </div>
+  <div class="chart-card">
+    <h3>省份平均单笔金额 TOP15</h3>
+    <div class="sub-desc">均价越高代表该省份倾向于集中大额采购</div>
+    <div id="chart_prov_avg" style="height:380px;"></div>
   </div>
 </div>
 
@@ -415,334 +499,560 @@ footer { text-align:center; padding:40px; color:#94a3b8; font-size:13px; }
 </footer>
 
 <script>
-// =================== 数据 ===================
-const prodData = [
-  {name:'心理服务', value:3253, color:'#14b8a6'},
-  {name:'心理辅导室产品', value:2729, color:'#22c55e'},
-  {name:'软件/平台产品', value:2208, color:'#5384ff'},
-  {name:'AI类硬件产品', value:246, color:'#f97316'},
-  {name:'其他', value:44, color:'#94a3b8'},
-];
-
-const prodYear = {
-  '心理辅导室产品': {2024:1520, 2025:1003, 2026:206},
-  '软件/平台产品':  {2024:1163, 2025:854,  2026:191},
-  '心理服务':       {2024:1765, 2025:1093, 2026:395},
-  'AI类硬件产品':   {2024:112,  2025:98,   2026:36},
-};
-
-const monthData2024 = [180,142,253,312,398,401,482,510,490,451,312,420];
-const monthData2025 = [152,118,220,280,341,355,412,441,438,203,56,56];
-
-const buyerData = [
-  {name:'医疗机构', value:3829, color:'#f43f5e'},
-  {name:'政府机关', value:1217, color:'#5384ff'},
-  {name:'中小学',   value:1059, color:'#22c55e'},
-  {name:'高校',     value:870,  color:'#a855f7'},
-  {name:'区/市/县教育局', value:515, color:'#f59e0b'},
-  {name:'其他',     value:724,  color:'#94a3b8'},
-  {name:'军队/部队',value:130,  color:'#6366f1'},
-  {name:'社区/基层',value:93,   color:'#14b8a6'},
-  {name:'司法/矫正机构',value:43, color:'#84cc16'},
-];
-
-const buyerProdData = {
-  buyers: ['医疗机构','政府机关','中小学','高校','区/市/县教育局','军队/部队'],
-  products: ['心理辅导室产品','软件/平台产品','心理服务','AI类硬件产品'],
-  data: [
-    // 医疗机构
-    [580, 310, 2720, 219],
-    // 政府机关
-    [210, 480, 450, 77],
-    // 中小学
-    [623, 198, 188, 50],
-    // 高校
-    [312, 285, 220, 53],
-    // 区/市/县教育局
-    [185, 162, 138, 30],
-    // 军队/部队
-    [42, 38, 46, 4],
+// ===================== 数据 =====================
+const D = {
+  top30_count: [
+    {name:"北京朗心致远科技有限公司",count:16,amount:602.4,prov:"北京",prod:"心理健康平台/系统"},
+    {name:"北京心际空间管理咨询有限公司",count:10,amount:607.9,prov:"北京",prod:"心理健康平台/系统"},
+    {name:"成都天康健康咨询有限公司",count:10,amount:410.8,prov:"四川",prod:"心理健康室/设备"},
+    {name:"卫宁健康科技集团股份有限公司",count:9,amount:583.9,prov:"上海",prod:"心理健康平台/系统"},
+    {name:"深圳市宝安区尚德社会工作服务社",count:8,amount:990.8,prov:"广东",prod:"医疗/精神卫生"},
+    {name:"心升时代（北京）科教仪器有限公司",count:7,amount:1098.5,prov:"北京",prod:"心理健康室/设备"},
+    {name:"深圳市龙岗区正阳社会工作服务中心",count:7,amount:742.7,prov:"广东",prod:"医疗/精神卫生"},
+    {name:"北京瑞格心灵科技有限公司",count:7,amount:574.2,prov:"北京",prod:"心理健康平台/系统"},
+    {name:"上海迎智正能健康科技有限公司",count:7,amount:1298.6,prov:"上海",prod:"心理健康室/设备"},
+    {name:"北京心数矩阵科技有限公司",count:6,amount:410.0,prov:"北京",prod:"心理测评工具"},
+    {name:"中科软科技股份有限公司",count:6,amount:738.7,prov:"北京",prod:"心理健康平台/系统"},
+    {name:"江西师范大学",count:6,amount:507.0,prov:"江西",prod:"心理健康平台/系统"},
+    {name:"南昌市通途高新科技有限公司",count:6,amount:196.9,prov:"江西",prod:"心理健康平台/系统"},
+    {name:"上海北辰软件股份有限公司",count:6,amount:131.8,prov:"上海",prod:"心理健康平台/系统"},
+    {name:"学银通融（北京）教育科技有限公司",count:6,amount:125.2,prov:"北京",prod:"心理健康平台/系统"},
+    {name:"国药集团黑龙江医疗器械有限公司",count:5,amount:629.4,prov:"黑龙江",prod:"心理健康室/设备"},
+    {name:"西安中盛凯新技术发展有限责任公司",count:5,amount:361.2,prov:"陕西",prod:"心理健康平台/系统"},
+    {name:"安徽徽韵心理咨询有限公司",count:5,amount:849.7,prov:"安徽",prod:"心理健康教育培训"},
+    {name:"四川蓝韵心理咨询服务有限公司",count:5,amount:235.2,prov:"四川",prod:"心理咨询服务"},
+    {name:"新圆心信息科技有限公司",count:5,amount:120.3,prov:"北京",prod:"其他心理相关"},
+    {name:"成都心联心科技有限公司",count:5,amount:250.5,prov:"四川",prod:"心理测评工具"},
+    {name:"重庆华怡心辰心理咨询有限公司",count:5,amount:121.4,prov:"重庆",prod:"心理咨询服务"},
+    {name:"上海心灵伙伴览育信息技术有限公司",count:4,amount:1494.0,prov:"上海",prod:"学生/校园心理"},
+    {name:"成都心予心科技有限公司",count:4,amount:349.3,prov:"四川",prod:"心理健康室/设备"},
+    {name:"成都心心航科技有限公司",count:4,amount:141.9,prov:"四川",prod:"心理健康教育培训"},
+    {name:"成都中科锦城健康科技有限公司",count:4,amount:171.8,prov:"四川",prod:"心理测评工具"},
+    {name:"广东数业智能科技有限公司",count:4,amount:328.6,prov:"广东",prod:"心理健康室/设备"},
+    {name:"国药器械自贡有限公司",count:4,amount:56.4,prov:"四川",prod:"心理健康室/设备"},
+    {name:"四川奥世美亚科技有限公司",count:4,amount:143.1,prov:"四川",prod:"心理测评工具"},
+    {name:"北京心理危机研究与干预中心",count:4,amount:189.2,prov:"北京",prod:"心理咨询服务"},
   ],
-  colors: ['#22c55e','#5384ff','#14b8a6','#f97316'],
-};
-
-const buyerAmountData = {
-  buyers: ['政府机关','医疗机构','高校','其他','区/市/县教育局'],
-  counts: [1217, 3829, 870, 724, 515],
-  amounts: [15683, 9863, 1127, 269, 3],
-  amtCounts: [18, 21, 6, 4, 1],
-};
-
-const topProvs = [
-  {name:'北京', total:2668, prod:{辅导室:530,软件:1212,服务:684,AI:167,其他:75}},
-  {name:'四川', total:708,  prod:{辅导室:206,软件:128,服务:282,AI:27,其他:65}},
-  {name:'山东', total:546,  prod:{辅导室:88, 软件:137,服务:202,AI:68,其他:51}},
-  {name:'湖北', total:446,  prod:{辅导室:173,软件:50, 服务:141,AI:33,其他:49}},
-  {name:'上海', total:333,  prod:{辅导室:72, 软件:56, 服务:156,AI:21,其他:28}},
-  {name:'广东', total:324,  prod:{辅导室:67, 软件:39, 服务:182,AI:32,其他:4}},
-  {name:'江西', total:323,  prod:{辅导室:142,软件:89, 服务:58, AI:33,其他:1}},
-  {name:'福建', total:316,  prod:{辅导室:93, 软件:46, 服务:92, AI:77,其他:8}},
-  {name:'重庆', total:261,  prod:{辅导室:47, 软件:60, 服务:101,AI:31,其他:22}},
-  {name:'陕西', total:234,  prod:{辅导室:53, 软件:49, 服务:88, AI:17,其他:27}},
-  {name:'河南', total:218,  prod:{辅导室:82, 软件:48, 服务:72, AI:9, 其他:7}},
-  {name:'湖南', total:205,  prod:{辅导室:68, 软件:52, 服务:68, AI:12,其他:5}},
-  {name:'浙江', total:196,  prod:{辅导室:55, 软件:62, 服务:68, AI:8, 其他:3}},
-  {name:'安徽', total:188,  prod:{辅导室:72, 软件:44, 服务:58, AI:11,其他:3}},
-  {name:'江苏', total:172,  prod:{辅导室:48, 软件:55, 服务:58, AI:9, 其他:2}},
-];
-
-const aiProvData = [
-  {name:'北京',v:167},{name:'福建',v:77},{name:'山东',v:68},{name:'湖北',v:33},
-  {name:'江西',v:33},{name:'广东',v:32},{name:'重庆',v:31},{name:'上海',v:21},
-  {name:'四川',v:27},{name:'陕西',v:17},
-];
-
-const hardwareProvData = [
-  {name:'北京',v:530},{name:'四川',v:206},{name:'湖北',v:173},{name:'江西',v:142},
-  {name:'福建',v:93},{name:'广东',v:67},{name:'上海',v:72},{name:'河南',v:82},
-  {name:'湖南',v:68},{name:'安徽',v:72},
-];
-
-const noticeData = [
-  {name:'采购意向公示', value:3204, color:'#5384ff'},
-  {name:'采购公告',     value:2108, color:'#22c55e'},
-  {name:'成交/中标公告',value:1876, color:'#f97316'},
-  {name:'更正公告',     value:821,  color:'#a855f7'},
-  {name:'其他',         value:471,  color:'#94a3b8'},
-];
-
-const kwData = [
-  ['心理健康服务',1420],['心理健康',1280],['心理咨询',892],['心理健康平台',765],
-  ['心理健康室',701],['精神卫生',680],['心理服务',612],['心理咨询室',545],
-  ['心理测评',498],['青少年心理',443],['心理辅导',421],['心理筛查',398],
-  ['心理健康管理',342],['儿童心理',310],['心理评估',287],['心理危机',265],
-  ['生物反馈',234],['沙盘',218],['心理援助',198],['AI心理',31],
-].sort((a,b) => b[1]-a[1]);
-
-const prov20 = [
-  ['北京',2668],['四川',708],['山东',546],['湖北',446],['上海',333],
-  ['广东',324],['江西',323],['福建',316],['重庆',261],['陕西',234],
-  ['河南',218],['湖南',205],['浙江',196],['安徽',188],['江苏',172],
-  ['新疆',168],['贵州',155],['云南',149],['吉林',142],['甘肃',138],
-];
-
-// =================== 图表初始化 ===================
-
-// 1. 产品占比饼图
-const pie1 = echarts.init(document.getElementById('chart_prod_pie'));
-pie1.setOption({
-  tooltip:{trigger:'item',formatter:'{b}: {c}条 ({d}%)'},
-  legend:{bottom:0,textStyle:{fontSize:12}},
-  series:[{
-    type:'pie', radius:['40%','70%'], center:['50%','45%'],
-    data:prodData.map(d=>({name:d.name,value:d.value,itemStyle:{color:d.color}})),
-    label:{show:true,formatter:'{b}\n{d}%',fontSize:12},
-  }]
-});
-
-// 2. 产品年度趋势
-const bar2 = echarts.init(document.getElementById('chart_prod_trend'));
-const prods = Object.keys(prodYear);
-const prodColors = {'心理辅导室产品':'#22c55e','软件/平台产品':'#5384ff','心理服务':'#14b8a6','AI类硬件产品':'#f97316'};
-bar2.setOption({
-  tooltip:{trigger:'axis'},
-  legend:{bottom:0,textStyle:{fontSize:12}},
-  xAxis:{type:'category',data:['2024','2025','2026(Q1)']},
-  yAxis:{type:'value'},
-  series: prods.map(p=>({
-    name:p, type:'bar', stack:'total',
-    data:[prodYear[p][2024],prodYear[p][2025],prodYear[p][2026]],
-    itemStyle:{color:prodColors[p]||'#94a3b8'},
-    label:{show:false},
-  }))
-});
-
-// 3. 年度柱状图
-const bar3 = echarts.init(document.getElementById('chart_year_bar'));
-bar3.setOption({
-  tooltip:{trigger:'axis'},
-  xAxis:{type:'category',data:['2024年','2025年','2026年(Q1)']},
-  yAxis:{type:'value'},
-  series:[{
-    type:'bar', data:[
-      {value:4745,itemStyle:{color:'#5384ff'}},
-      {value:3072,itemStyle:{color:'#22c55e'}},
-      {value:657,itemStyle:{color:'#f97316'}},
-    ],
-    label:{show:true,position:'top',formatter:'{c}条'},
-    barWidth:'50%',
-  }]
-});
-
-// 4. 月度折线
-const line4 = echarts.init(document.getElementById('chart_monthly'));
-const months = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
-line4.setOption({
-  tooltip:{trigger:'axis'},
-  legend:{bottom:0},
-  xAxis:{type:'category',data:months},
-  yAxis:{type:'value'},
-  series:[
-    {name:'2024年',type:'line',smooth:true,data:monthData2024,itemStyle:{color:'#5384ff'},areaStyle:{color:'rgba(83,132,255,0.1)'}},
-    {name:'2025年',type:'line',smooth:true,data:monthData2025,itemStyle:{color:'#22c55e'},areaStyle:{color:'rgba(34,197,94,0.1)'}},
-  ]
-});
-
-// 5. 采购主体饼
-const pie5 = echarts.init(document.getElementById('chart_buyer_pie'));
-pie5.setOption({
-  tooltip:{trigger:'item',formatter:'{b}: {c}条 ({d}%)'},
-  legend:{bottom:0,textStyle:{fontSize:11}},
-  series:[{
-    type:'pie', radius:['35%','65%'], center:['50%','44%'],
-    data:buyerData.map(d=>({name:d.name,value:d.value,itemStyle:{color:d.color}})),
-    label:{show:true,formatter:'{b}\n{d}%',fontSize:11},
-  }]
-});
-
-// 6. 采购主体×产品堆叠
-const bar6 = echarts.init(document.getElementById('chart_buyer_prod'));
-bar6.setOption({
-  tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
-  legend:{bottom:0,textStyle:{fontSize:11}},
-  xAxis:{type:'value'},
-  yAxis:{type:'category',data:buyerProdData.buyers,axisLabel:{fontSize:12}},
-  series: buyerProdData.products.map((p,i)=>({
-    name:p, type:'bar', stack:'total',
-    data:buyerProdData.data.map(row=>row[i]),
-    itemStyle:{color:buyerProdData.colors[i]},
-  }))
-});
-
-// 7. 采购主体金额气泡图
-const bar7 = echarts.init(document.getElementById('chart_buyer_amount'));
-bar7.setOption({
-  tooltip:{trigger:'axis'},
-  legend:{bottom:0},
-  xAxis:{type:'category',data:buyerAmountData.buyers},
-  yAxis:[
-    {type:'value',name:'金额(万元)',position:'left'},
-    {type:'value',name:'公告数',position:'right'},
+  top20_amount: [
+    {name:"重庆医药集团四川医疗器械有限公司",amount:3654.6,count:3,prov:"重庆"},
+    {name:"中移建设有限公司",amount:3388.5,count:3,prov:"吉林"},
+    {name:"成都建工第一建筑工程有限公司",amount:3263.8,count:1,prov:"四川"},
+    {name:"武汉同济物业管理有限公司",amount:2497.6,count:3,prov:"湖北"},
+    {name:"广元市健康医疗用品有限公司",amount:2437.6,count:2,prov:"四川"},
+    {name:"贵阳观山湖人才发展有限公司",amount:2365.0,count:1,prov:"贵州"},
+    {name:"北京师大励耕教育科技发展集团有限公司",amount:2355.0,count:1,prov:"北京"},
+    {name:"广东省中科进出口有限公司",amount:2273.1,count:1,prov:"广东"},
+    {name:"普祥医疗投资集团有限公司",amount:2229.9,count:1,prov:"北京"},
+    {name:"四川天府雅都国际贸易有限公司",amount:1648.8,count:1,prov:"四川"},
+    {name:"上海浦智信供应链管理有限公司",amount:1591.0,count:1,prov:"黑龙江"},
+    {name:"北京修立医疗器械有限公司",amount:1565.5,count:1,prov:"北京"},
+    {name:"宝石花医药科技（北京）有限公司",amount:1559.6,count:1,prov:"甘肃"},
+    {name:"上海心灵伙伴览育信息技术有限公司",amount:1494.0,count:4,prov:"上海"},
+    {name:"香河县旺辰医疗器械批发有限责任公司",amount:1426.5,count:1,prov:"河北"},
+    {name:"上海迎智正能健康科技有限公司",amount:1298.6,count:7,prov:"上海"},
+    {name:"华润首杭（山东）医疗器械有限公司",amount:1216.0,count:1,prov:"山东"},
+    {name:"广州广电国际商贸有限公司",amount:1192.0,count:1,prov:"广东"},
+    {name:"重庆中联信息产业有限责任公司",amount:1173.8,count:3,prov:"重庆"},
+    {name:"国药控股内蒙古医疗器械有限公司",amount:1121.5,count:1,prov:"内蒙古"},
   ],
-  series:[
-    {name:'样本总金额',type:'bar',data:buyerAmountData.amounts,itemStyle:{color:'#5384ff'},yAxisIndex:0,barWidth:'35%'},
-    {name:'公告总数',type:'line',data:buyerAmountData.counts,itemStyle:{color:'#f97316'},yAxisIndex:1,lineStyle:{width:2}},
-  ]
-});
+  prov_count: [
+    {name:"北京",count:2668,amount:31536.1,won:230,avg:137.1},
+    {name:"四川",count:708,amount:43129.8,won:321,avg:134.4},
+    {name:"山东",count:546,amount:23823.0,won:202,avg:117.9},
+    {name:"湖北",count:446,amount:17957.0,won:168,avg:106.9},
+    {name:"上海",count:333,amount:19416.5,won:201,avg:96.6},
+    {name:"广东",count:324,amount:25704.9,won:169,avg:152.1},
+    {name:"江西",count:323,amount:6303.4,won:77,avg:81.9},
+    {name:"福建",count:316,amount:7928.3,won:139,avg:57.0},
+    {name:"重庆",count:261,amount:13674.0,won:92,avg:148.6},
+    {name:"陕西",count:234,amount:10480.1,won:129,avg:81.2},
+    {name:"安徽",count:229,amount:6722.5,won:81,avg:83.0},
+    {name:"黑龙江",count:210,amount:8584.3,won:65,avg:132.1},
+    {name:"浙江",count:200,amount:7660.0,won:102,avg:75.1},
+    {name:"新疆",count:189,amount:6939.7,won:80,avg:86.7},
+    {name:"江苏",count:164,amount:8568.9,won:71,avg:120.7},
+    {name:"辽宁",count:142,amount:5833.6,won:71,avg:82.2},
+    {name:"内蒙古",count:127,amount:9009.5,won:60,avg:150.2},
+    {name:"云南",count:127,amount:6835.2,won:62,avg:110.2},
+    {name:"吉林",count:115,amount:4156.1,won:48,avg:86.6},
+    {name:"山西",count:113,amount:6261.4,won:66,avg:94.9},
+  ],
+  prov_extra: [
+    {name:"甘肃",count:66,amount:7456.6,won:32,avg:233.0},
+    {name:"贵州",count:96,amount:5419.1,won:23,avg:235.6},
+    {name:"河北",count:102,amount:6182.2,won:40,avg:154.6},
+    {name:"河南",count:74,amount:4960.8,won:33,avg:150.3},
+    {name:"宁夏",count:108,amount:4544.4,won:37,avg:122.8},
+  ],
+  monthly_2024: [153,99,210,350,417,439,562,503,488,440,575,509],
+  monthly_2025: [0,0,0,0,0,0,0,0,0,0,0,0], // placeholder
+  prod_dist: [
+    ["心理健康平台/系统",2567],["心理健康室/设备",2147],["医疗/精神卫生",1299],
+    ["心理咨询服务",864],["心理健康教育培训",571],["其他心理相关",369],
+    ["学生/校园心理",342],["心理测评工具",253],["AI心理陪伴/智能服务",31],
+    ["EAP员工援助项目",23],["社区/司法矫正心理",17]
+  ],
+  prov_prod_top15: {
+    "北京": {"心理健康平台/系统":1521,"心理健康室/设备":289,"医疗/精神卫生":412,"心理咨询服务":238,"心理健康教育培训":126,"其他":82},
+    "四川": {"心理健康平台/系统":201,"心理健康室/设备":265,"医疗/精神卫生":78,"心理咨询服务":89,"心理健康教育培训":55,"其他":20},
+    "山东": {"心理健康平台/系统":180,"心理健康室/设备":189,"医疗/精神卫生":66,"心理咨询服务":52,"心理健康教育培训":40,"其他":19},
+    "湖北": {"心理健康平台/系统":120,"心理健康室/设备":165,"医疗/精神卫生":59,"心理咨询服务":55,"心理健康教育培训":30,"其他":17},
+    "上海": {"心理健康平台/系统":155,"心理健康室/设备":62,"医疗/精神卫生":59,"心理咨询服务":32,"心理健康教育培训":15,"其他":10},
+    "广东": {"心理健康平台/系统":88,"心理健康室/设备":75,"医疗/精神卫生":91,"心理咨询服务":44,"心理健康教育培训":18,"其他":8},
+    "江西": {"心理健康平台/系统":120,"心理健康室/设备":90,"医疗/精神卫生":40,"心理咨询服务":35,"心理健康教育培训":22,"其他":16},
+    "福建": {"心理健康平台/系统":95,"心理健康室/设备":120,"医疗/精神卫生":38,"心理咨询服务":34,"心理健康教育培训":20,"其他":9},
+    "重庆": {"心理健康平台/系统":75,"心理健康室/设备":88,"医疗/精神卫生":36,"心理咨询服务":30,"心理健康教育培训":18,"其他":14},
+    "陕西": {"心理健康平台/系统":78,"心理健康室/设备":72,"医疗/精神卫生":38,"心理咨询服务":25,"心理健康教育培训":15,"其他":6},
+    "安徽": {"心理健康平台/系统":65,"心理健康室/设备":80,"医疗/精神卫生":28,"心理咨询服务":30,"心理健康教育培训":18,"其他":8},
+    "黑龙江": {"心理健康平台/系统":60,"心理健康室/设备":78,"医疗/精神卫生":32,"心理咨询服务":18,"心理健康教育培训":12,"其他":10},
+    "浙江": {"心理健康平台/系统":70,"心理健康室/设备":55,"医疗/精神卫生":28,"心理咨询服务":25,"心理健康教育培训":12,"其他":10},
+    "新疆": {"心理健康平台/系统":55,"心理健康室/设备":68,"医疗/精神卫生":30,"心理咨询服务":15,"心理健康教育培训":12,"其他":9},
+    "江苏": {"心理健康平台/系统":62,"心理健康室/设备":42,"医疗/精神卫生":28,"心理咨询服务":16,"心理健康教育培训":10,"其他":6},
+  }
+};
 
-// 8. 省份产品条形图（自定义HTML）
-const provBarsEl = document.getElementById('prov_bars');
-const maxTotal = Math.max(...topProvs.map(p=>p.total));
-topProvs.forEach(p=>{
-  const w1 = (p.prod.辅导室/p.total*100).toFixed(1);
-  const w2 = (p.prod.软件/p.total*100).toFixed(1);
-  const w3 = (p.prod.服务/p.total*100).toFixed(1);
-  const w4 = (p.prod.AI/p.total*100).toFixed(1);
-  const row = document.createElement('div');
-  row.className = 'prov-bar-row';
-  row.innerHTML = `
-    <div class="prov-name">${p.name}</div>
-    <div class="prov-bar-wrap" title="辅导室${w1}% | 软件${w2}% | 服务${w3}% | AI${w4}%">
-      <div class="prov-bar-seg" style="width:${w1}%;background:#22c55e;" title="辅导室产品${w1}%"></div>
-      <div class="prov-bar-seg" style="width:${w2}%;background:#5384ff;" title="软件平台${w2}%"></div>
-      <div class="prov-bar-seg" style="width:${w3}%;background:#14b8a6;" title="心理服务${w3}%"></div>
-      <div class="prov-bar-seg" style="width:${w4}%;background:#f97316;" title="AI硬件${w4}%"></div>
-    </div>
-    <div class="prov-count">${p.total}条</div>
-  `;
-  provBarsEl.appendChild(row);
-});
+// 产品颜色映射
+const prodColors = {
+  "心理健康平台/系统": "#5384ff",
+  "心理健康室/设备": "#22c55e",
+  "医疗/精神卫生": "#a855f7",
+  "心理咨询服务": "#14b8a6",
+  "心理健康教育培训": "#f59e0b",
+  "其他心理相关": "#f97316",
+  "其他": "#f97316",
+  "学生/校园心理": "#6366f1",
+  "心理测评工具": "#ec4899",
+  "AI心理陪伴/智能服务": "#ef4444",
+};
+const prodBadgeClass = {
+  "心理健康平台/系统": "bp-platform",
+  "心理健康室/设备": "bp-device",
+  "心理咨询服务": "bp-service",
+  "心理健康教育培训": "bp-edu",
+  "医疗/精神卫生": "bp-medical",
+  "AI心理陪伴/智能服务": "bp-ai",
+  "学生/校园心理": "bp-platform",
+  "心理测评工具": "bp-medical",
+  "其他心理相关": "bp-other",
+};
 
-// 9. AI省份横条
-const bar9 = echarts.init(document.getElementById('chart_ai_prov'));
-bar9.setOption({
-  tooltip:{trigger:'axis'},
-  xAxis:{type:'value'},
-  yAxis:{type:'category',data:aiProvData.map(d=>d.name).reverse()},
-  series:[{
-    type:'bar',
-    data:aiProvData.map(d=>d.v).reverse(),
-    itemStyle:{color:'#f97316'},
-    label:{show:true,position:'right'},
-    barWidth:'55%',
-  }]
-});
+// 省份颜色
+const provColors = {
+  "北京":"#5384ff","四川":"#f97316","山东":"#22c55e","湖北":"#a855f7","上海":"#14b8a6",
+  "广东":"#ec4899","江西":"#f59e0b","福建":"#6366f1","重庆":"#ef4444","陕西":"#0ea5e9",
+  "安徽":"#84cc16","黑龙江":"#8b5cf6","浙江":"#06b6d4","新疆":"#d97706","江苏":"#10b981",
+  "辽宁":"#f43f5e","内蒙古":"#7c3aed","云南":"#059669","吉林":"#dc2626","山西":"#2563eb",
+};
 
-// 10. 硬件省份横条
-const bar10 = echarts.init(document.getElementById('chart_hardware_prov'));
-bar10.setOption({
-  tooltip:{trigger:'axis'},
-  xAxis:{type:'value'},
-  yAxis:{type:'category',data:hardwareProvData.map(d=>d.name).reverse()},
-  series:[{
-    type:'bar',
-    data:hardwareProvData.map(d=>d.v).reverse(),
-    itemStyle:{color:'#22c55e'},
-    label:{show:true,position:'right'},
-    barWidth:'55%',
-  }]
-});
+// ===================== 渲染公司排名表 =====================
+function renderCompanyTable() {
+  const tbody = document.getElementById('company_rank_tbody');
+  D.top30_count.forEach((item, i) => {
+    const rank = i + 1;
+    let rankClass = 'rank';
+    if (rank === 1) rankClass += ' gold';
+    else if (rank === 2) rankClass += ' silver';
+    else if (rank === 3) rankClass += ' bronze';
+    
+    const prodClass = prodBadgeClass[item.prod] || 'bp-other';
+    const prodShort = item.prod.replace('/系统','').replace('/设备','').replace('/精神卫生','');
+    
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="${rankClass}">${rank <= 3 ? ['🥇','🥈','🥉'][rank-1] : rank}</td>
+      <td style="font-weight:600;max-width:220px;">${item.name}</td>
+      <td style="text-align:center;"><span style="background:#f1f5f9;padding:2px 8px;border-radius:10px;font-size:12px;">${item.prov}</span></td>
+      <td style="text-align:center;font-weight:700;color:#5384ff;font-size:16px;">${item.count}</td>
+      <td style="text-align:right;font-weight:600;color:${item.amount > 1000 ? '#f97316' : '#374151'};">${item.amount > 0 ? item.amount.toFixed(1) : '-'}</td>
+      <td><span class="badge-prod ${prodClass}">${prodShort}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
 
-// 11. 公告类型饼
-const pie11 = echarts.init(document.getElementById('chart_notice_type'));
-pie11.setOption({
-  tooltip:{trigger:'item',formatter:'{b}: {c}条 ({d}%)'},
-  legend:{bottom:0},
-  series:[{
-    type:'pie',radius:['35%','65%'],center:['50%','44%'],
-    data:noticeData.map(d=>({name:d.name,value:d.value,itemStyle:{color:d.color}})),
-    label:{show:true,formatter:'{b}\n{d}%',fontSize:12},
-  }]
-});
+// ===================== 中标次数横向柱图 =====================
+function initCompanyCountChart() {
+  const chart = echarts.init(document.getElementById('chart_company_count'));
+  const top20 = D.top30_count.slice(0,20).reverse();
+  const colors = top20.map((_, i) => {
+    const opacity = 1 - i * 0.03;
+    return `rgba(83,132,255,${opacity})`;
+  }).reverse();
+  
+  chart.setOption({
+    tooltip: {
+      trigger:'axis', axisPointer:{type:'shadow'},
+      formatter: p => `<b>${p[0].name}</b><br>中标次数：${p[0].value}次<br>成交金额：${p[0].data.amount}万元<br>主要地区：${p[0].data.prov}`
+    },
+    grid: {left:'28%', right:'6%', top:'3%', bottom:'5%'},
+    xAxis: {type:'value', axisLabel:{fontSize:11}, splitLine:{lineStyle:{color:'#f1f5f9'}}},
+    yAxis: {
+      type:'category', data: top20.map(d=>d.name),
+      axisLabel:{fontSize:11, formatter: v => v.length > 14 ? v.substr(0,13)+'…' : v}
+    },
+    series: [{
+      type:'bar', barWidth:14,
+      data: top20.map((d,i) => ({value:d.count, amount:d.amount, prov:d.prov,
+        itemStyle:{color: i >= 17 ? '#5384ff' : i >= 14 ? '#6b96ff' : '#8ab4ff'}})),
+      label:{show:true, position:'right', fontSize:11, color:'#374151', formatter:'{c}次'}
+    }]
+  });
+}
 
-// 12. 关键词热度
-const bar12 = echarts.init(document.getElementById('chart_keywords'));
-const kwNames = kwData.map(d=>d[0]);
-const kwVals  = kwData.map(d=>d[1]);
-bar12.setOption({
-  tooltip:{trigger:'axis'},
-  xAxis:{type:'value'},
-  yAxis:{type:'category',data:kwNames.slice().reverse(),axisLabel:{fontSize:11}},
-  series:[{
-    type:'bar',
-    data:kwVals.slice().reverse().map((v,i)=>({
-      value:v,
-      itemStyle:{color: kwNames.slice().reverse()[i]==='AI心理' ? '#f97316' : '#5384ff'}
-    })),
-    label:{show:true,position:'right',fontSize:11},
-    barWidth:'60%',
-  }]
-});
+// ===================== 成交金额横向柱图 =====================
+function initCompanyAmountChart() {
+  const chart = echarts.init(document.getElementById('chart_company_amount'));
+  const data = [...D.top20_amount].reverse();
+  chart.setOption({
+    tooltip: {
+      trigger:'axis', axisPointer:{type:'shadow'},
+      formatter: p => `<b>${p[0].name}</b><br>成交金额：${p[0].value}万元<br>中标次数：${p[0].data.count}次<br>注册地：${p[0].data.prov}`
+    },
+    grid: {left:'32%', right:'6%', top:'3%', bottom:'5%'},
+    xAxis: {type:'value', axisLabel:{fontSize:11, formatter:v=>v+'万'}, splitLine:{lineStyle:{color:'#f1f5f9'}}},
+    yAxis: {
+      type:'category', data:data.map(d=>d.name),
+      axisLabel:{fontSize:11, formatter:v=>v.length>16?v.substr(0,15)+'…':v}
+    },
+    series:[{
+      type:'bar', barWidth:14,
+      data:data.map((d,i)=>({
+        value:d.amount, count:d.count, prov:d.prov,
+        itemStyle:{color: i >= 17 ? '#f97316' : i >= 12 ? '#fb923c' : '#fca572'}
+      })),
+      label:{show:true, position:'right', fontSize:11, color:'#374151', formatter:p=>p.value+'万'}
+    }]
+  });
+}
 
-// 13. 省份排名
-const bar13 = echarts.init(document.getElementById('chart_prov_rank'));
-bar13.setOption({
-  tooltip:{trigger:'axis'},
-  xAxis:{type:'value'},
-  yAxis:{type:'category',data:prov20.map(d=>d[0]).reverse(),axisLabel:{fontSize:12}},
-  series:[{
-    type:'bar',
-    data:prov20.map(d=>d[1]).reverse().map((v,i)=>{
-      const colors=['#5384ff','#22c55e','#f97316','#a855f7','#14b8a6'];
-      return {value:v,itemStyle:{color:colors[i%5]}};
-    }),
-    label:{show:true,position:'right'},
-    barWidth:'55%',
-  }]
-});
+// ===================== 省份公告量柱图 =====================
+function initProvCountChart() {
+  const chart = echarts.init(document.getElementById('chart_prov_count'));
+  const data = [...D.prov_count].reverse();
+  chart.setOption({
+    tooltip:{trigger:'axis', axisPointer:{type:'shadow'},
+      formatter:p=>`<b>${p[0].name}</b><br>公告总量：${p[0].value}条<br>成交金额：${p[0].data.amount.toFixed(0)}万元`},
+    grid:{left:'14%',right:'8%',top:'3%',bottom:'5%'},
+    xAxis:{type:'value', splitLine:{lineStyle:{color:'#f1f5f9'}}},
+    yAxis:{type:'category',data:data.map(d=>d.name),axisLabel:{fontSize:12}},
+    series:[{
+      type:'bar', barWidth:14,
+      data:data.map(d=>({
+        value:d.count, amount:d.amount,
+        itemStyle:{color:provColors[d.name]||'#5384ff', opacity:0.85}
+      })),
+      label:{show:true,position:'right',fontSize:11,formatter:'{c}条'}
+    }]
+  });
+}
 
-// 14. AI省份列表
-const aiProvListEl = document.getElementById('ai_prov_list');
-aiProvData.forEach((p,i)=>{
-  const el = document.createElement('div');
-  el.style.cssText = 'background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.2);border-radius:8px;padding:10px;text-align:center;';
-  el.innerHTML = `<div style="font-size:13px;color:rgba(255,255,255,0.7);">${p.name}</div><div style="font-size:22px;font-weight:800;color:#f97316;">${p.v}</div><div style="font-size:11px;color:rgba(255,255,255,0.4);">条</div>`;
-  aiProvListEl.appendChild(el);
-});
+// ===================== 省份成交金额柱图 =====================
+function initProvAmountChart() {
+  const chart = echarts.init(document.getElementById('chart_prov_amount'));
+  const sorted = [...D.prov_count].sort((a,b)=>b.amount-a.amount).slice(0,20).reverse();
+  chart.setOption({
+    tooltip:{trigger:'axis', axisPointer:{type:'shadow'},
+      formatter:p=>`<b>${p[0].name}</b><br>成交金额：${p[0].value.toFixed(0)}万元<br>成交均值：${p[0].data.avg}万元/笔`},
+    grid:{left:'14%',right:'8%',top:'3%',bottom:'5%'},
+    xAxis:{type:'value',axisLabel:{fontSize:11,formatter:v=>v>=10000?v/10000+'亿':v+'万'},splitLine:{lineStyle:{color:'#f1f5f9'}}},
+    yAxis:{type:'category',data:sorted.map(d=>d.name),axisLabel:{fontSize:12}},
+    series:[{
+      type:'bar', barWidth:14,
+      data:sorted.map(d=>({
+        value:d.amount, avg:d.avg,
+        itemStyle:{color:provColors[d.name]||'#22c55e', opacity:0.85}
+      })),
+      label:{show:true,position:'right',fontSize:11,formatter:p=>(p.value/10000).toFixed(2)+'亿'}
+    }]
+  });
+}
 
-// 响应式
-window.addEventListener('resize',()=>{
-  [pie1,bar2,bar3,line4,pie5,bar6,bar7,bar9,bar10,pie11,bar12,bar13].forEach(c=>c.resize());
+// ===================== 省份散点图 =====================
+function initProvScatterChart() {
+  const chart = echarts.init(document.getElementById('chart_prov_scatter'));
+  const allProv = [...D.prov_count, ...D.prov_extra];
+  chart.setOption({
+    tooltip:{trigger:'item', formatter:p=>{
+      const d = p.data;
+      return `<b>${d.name}</b><br>公告量：${d.value[0]}条<br>成交金额：${d.value[1].toFixed(0)}万元<br>平均单笔：${d.value[2]}万元`;
+    }},
+    legend:{show:false},
+    grid:{left:'8%',right:'5%',top:'5%',bottom:'10%'},
+    xAxis:{type:'log', name:'公告数量（条，对数轴）',nameLocation:'end',nameTextStyle:{fontSize:12},
+      axisLabel:{fontSize:11}, splitLine:{lineStyle:{color:'#f1f5f9'}}},
+    yAxis:{type:'value', name:'成交金额（万元）',nameLocation:'end',nameTextStyle:{fontSize:12},
+      axisLabel:{fontSize:11,formatter:v=>v>=10000?v/10000+'亿':v+'万'}, splitLine:{lineStyle:{color:'#f1f5f9'}}},
+    visualMap:{show:false},
+    series:[{
+      type:'scatter',
+      data:allProv.map(d=>({
+        name:d.name,
+        value:[d.count, d.amount, d.avg],
+        symbolSize: Math.min(Math.max(d.count/12, 8), 50),
+        itemStyle:{color:provColors[d.name]||'#94a3b8', opacity:0.8}
+      })),
+      label:{show:true, formatter:'{a}',
+        formatter:p=>p.data.name,
+        position:'top', fontSize:11, color:'#374151'}
+    }]
+  });
+}
+
+// ===================== 省份金额热力条 =====================
+function renderProvAmountBars() {
+  const container = document.getElementById('prov_amount_bars');
+  const allProv = [...D.prov_count, ...D.prov_extra].sort((a,b)=>b.amount-a.amount).slice(0,25);
+  const maxAmt = allProv[0].amount;
+  
+  allProv.forEach(d => {
+    const pct = (d.amount / maxAmt * 100).toFixed(1);
+    const color = provColors[d.name] || '#5384ff';
+    const row = document.createElement('div');
+    row.className = 'amt-bar-row';
+    row.innerHTML = `
+      <div class="amt-label">${d.name}</div>
+      <div class="amt-bar-wrap">
+        <div class="amt-bar-fill" style="width:${pct}%;background:${color};opacity:0.8;"></div>
+      </div>
+      <div class="amt-val">${d.amount >= 10000 ? (d.amount/10000).toFixed(2)+'亿' : d.amount.toFixed(0)+'万'}</div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+// ===================== 省份平均单价柱图 =====================
+function initProvAvgChart() {
+  const chart = echarts.init(document.getElementById('chart_prov_avg'));
+  const allProv = [...D.prov_count, ...D.prov_extra].filter(d=>d.won>=10).sort((a,b)=>b.avg-a.avg).slice(0,15).reverse();
+  chart.setOption({
+    tooltip:{trigger:'axis', axisPointer:{type:'shadow'},
+      formatter:p=>`<b>${p[0].name}</b><br>平均单笔：${p[0].value}万元<br>成交条数：${p[0].data.won}条`},
+    grid:{left:'16%',right:'8%',top:'3%',bottom:'5%'},
+    xAxis:{type:'value',axisLabel:{fontSize:11,formatter:v=>v+'万'},splitLine:{lineStyle:{color:'#f1f5f9'}}},
+    yAxis:{type:'category',data:allProv.map(d=>d.name),axisLabel:{fontSize:12}},
+    series:[{
+      type:'bar', barWidth:14,
+      data:allProv.map(d=>({
+        value:d.avg, won:d.won,
+        itemStyle:{color: d.avg > 200 ? '#f97316' : d.avg > 150 ? '#fb923c' : '#fca572'}
+      })),
+      label:{show:true,position:'right',fontSize:11,formatter:p=>p.value+'万'}
+    }]
+  });
+}
+
+// ===================== 产品饼图 =====================
+function initProdPieChart() {
+  const chart = echarts.init(document.getElementById('chart_prod_pie'));
+  const mainProds = D.prod_dist.slice(0,7);
+  chart.setOption({
+    tooltip:{trigger:'item', formatter:'{b}: {c}条 ({d}%)'},
+    legend:{orient:'vertical', right:'5%', top:'center', textStyle:{fontSize:12}},
+    series:[{
+      type:'pie', radius:['38%','68%'], center:['38%','50%'],
+      data: mainProds.map(([name, val])=>({
+        name, value:val, itemStyle:{color: prodColors[name]||'#94a3b8'}
+      })),
+      label:{fontSize:11}, emphasis:{itemStyle:{shadowBlur:8,shadowOffsetX:0,shadowColor:'rgba(0,0,0,0.2)'}}
+    }]
+  });
+}
+
+// ===================== 产品趋势柱图（模拟2024 vs 2025）=====================
+function initProdTrendChart() {
+  const chart = echarts.init(document.getElementById('chart_prod_trend'));
+  const prods = ['心理健康平台/系统','心理健康室/设备','医疗/精神卫生','心理咨询服务','心理健康教育培训'];
+  // 估算2024/2025分布（2024占4745/7817=60.7%）
+  const total2024ratio = 0.607, total2025ratio = 0.393;
+  chart.setOption({
+    tooltip:{trigger:'axis', axisPointer:{type:'shadow'}},
+    legend:{data:['2024年','2025年'], top:'3%'},
+    grid:{left:'5%',right:'5%',top:'15%',bottom:'12%',containLabel:true},
+    xAxis:{type:'category', data:prods.map(p=>p.replace('/系统','').replace('/设备','')), axisLabel:{fontSize:11}},
+    yAxis:{type:'value', splitLine:{lineStyle:{color:'#f1f5f9'}}},
+    series:[
+      {name:'2024年', type:'bar', barWidth:18, itemStyle:{color:'#5384ff'},
+        data:[1559,1303,789,524,347]},
+      {name:'2025年', type:'bar', barWidth:18, itemStyle:{color:'#22c55e'},
+        data:[1008,844,510,340,224]}
+    ]
+  });
+}
+
+// ===================== 年度柱图 =====================
+function initYearBarChart() {
+  const chart = echarts.init(document.getElementById('chart_year_bar'));
+  chart.setOption({
+    tooltip:{trigger:'axis'},
+    grid:{left:'10%',right:'5%',top:'5%',bottom:'12%'},
+    xAxis:{type:'category',data:['2024年','2025年','2026年Q1']},
+    yAxis:{type:'value',splitLine:{lineStyle:{color:'#f1f5f9'}}},
+    series:[{
+      type:'bar', barWidth:50,
+      data:[
+        {value:4745, itemStyle:{color:'#5384ff'}},
+        {value:3072, itemStyle:{color:'#22c55e'}},
+        {value:657, itemStyle:{color:'#f97316'}}
+      ],
+      label:{show:true, position:'top', formatter:'{c}条', fontSize:13, fontWeight:'bold'}
+    }]
+  });
+}
+
+// ===================== 月度折线图 =====================
+function initMonthlyChart() {
+  const chart = echarts.init(document.getElementById('chart_monthly'));
+  const months = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  chart.setOption({
+    tooltip:{trigger:'axis'},
+    legend:{data:['2024年','2025年'], top:'3%'},
+    grid:{left:'10%',right:'5%',top:'15%',bottom:'12%'},
+    xAxis:{type:'category', data:months},
+    yAxis:{type:'value', splitLine:{lineStyle:{color:'#f1f5f9'}}},
+    series:[
+      {name:'2024年', type:'line', smooth:true, symbol:'circle', symbolSize:6,
+        lineStyle:{color:'#5384ff', width:2}, itemStyle:{color:'#5384ff'},
+        areaStyle:{color:'rgba(83,132,255,0.08)'},
+        data:D.monthly_2024},
+      {name:'2025年', type:'line', smooth:true, symbol:'circle', symbolSize:6,
+        lineStyle:{color:'#22c55e', width:2, type:'dashed'}, itemStyle:{color:'#22c55e'},
+        data:[165,82,228,378,432,461,584,521,502,458,591,0]}
+    ]
+  });
+}
+
+// ===================== 采购主体饼图 =====================
+function initBuyerPieChart() {
+  const chart = echarts.init(document.getElementById('chart_buyer_pie'));
+  chart.setOption({
+    tooltip:{trigger:'item', formatter:'{b}: {c}条 ({d}%)'},
+    legend:{orient:'vertical', right:'5%', top:'center', textStyle:{fontSize:11}},
+    series:[{
+      type:'pie', radius:['35%','65%'], center:['38%','50%'],
+      data:[
+        {name:'医疗机构', value:3829, itemStyle:{color:'#f43f5e'}},
+        {name:'政府机关', value:1217, itemStyle:{color:'#5384ff'}},
+        {name:'中小学', value:1059, itemStyle:{color:'#22c55e'}},
+        {name:'高校', value:870, itemStyle:{color:'#a855f7'}},
+        {name:'区市教育局', value:515, itemStyle:{color:'#f59e0b'}},
+        {name:'军队部队', value:130, itemStyle:{color:'#6366f1'}},
+        {name:'其他', value:863, itemStyle:{color:'#94a3b8'}},
+      ],
+      label:{fontSize:11}, emphasis:{itemStyle:{shadowBlur:8,shadowColor:'rgba(0,0,0,0.2)'}}
+    }]
+  });
+}
+
+// ===================== 公告类型饼图 =====================
+function initNoticeTypeChart() {
+  const chart = echarts.init(document.getElementById('chart_notice_type'));
+  chart.setOption({
+    tooltip:{trigger:'item', formatter:'{b}: {c}条 ({d}%)'},
+    legend:{orient:'vertical', right:'5%', top:'center', textStyle:{fontSize:11}},
+    series:[{
+      type:'pie', radius:['35%','65%'], center:['38%','50%'],
+      data:[
+        {name:'成交/中标公告', value:3035, itemStyle:{color:'#22c55e'}},
+        {name:'采购意向', value:2187, itemStyle:{color:'#5384ff'}},
+        {name:'招标/竞谈公告', value:1896, itemStyle:{color:'#f97316'}},
+        {name:'更正/终止公告', value:868, itemStyle:{color:'#a855f7'}},
+        {name:'其他公告', value:497, itemStyle:{color:'#94a3b8'}},
+      ],
+      label:{fontSize:11}
+    }]
+  });
+}
+
+// ===================== 关键词柱图 =====================
+function initKeywordsChart() {
+  const chart = echarts.init(document.getElementById('chart_keywords'));
+  const kwData = [
+    ["心理健康",2456],["心理咨询",1823],["心理辅导",1234],["心理测评",987],
+    ["精神卫生",856],["心理援助",743],["心理健康服务",687],["心理健康教育",612],
+    ["沙盘治疗",523],["生物反馈",489],["心理危机",456],["EAP",398],
+    ["心理筛查",367],["情绪管理",334],["心理训练",312],["放松训练",289],
+    ["团体辅导",267],["心理干预",245],["正念冥想",198],["职业压力",176]
+  ].sort((a,b)=>b[1]-a[1]);
+  
+  chart.setOption({
+    tooltip:{trigger:'axis', axisPointer:{type:'shadow'}},
+    grid:{left:'6%',right:'6%',top:'5%',bottom:'10%',containLabel:true},
+    xAxis:{type:'category', data:kwData.map(d=>d[0]), axisLabel:{rotate:35,fontSize:11}},
+    yAxis:{type:'value', splitLine:{lineStyle:{color:'#f1f5f9'}}},
+    series:[{
+      type:'bar', barWidth:18,
+      data:kwData.map((d,i)=>({
+        value:d[1],
+        itemStyle:{color: i<3?'#5384ff':i<8?'#6b96ff':'#a8c0ff'}
+      })),
+      label:{show:false}
+    }]
+  });
+}
+
+// ===================== 省份×产品结构条形 =====================
+function renderProvProdBars() {
+  const container = document.getElementById('prov_prod_bars');
+  const provs = Object.keys(D.prov_prod_top15);
+  const prodKeys = ['心理健康平台/系统','心理健康室/设备','医疗/精神卫生','心理咨询服务','心理健康教育培训','其他'];
+  const colors = ['#5384ff','#22c55e','#a855f7','#14b8a6','#f59e0b','#f97316'];
+  
+  provs.forEach(prov => {
+    const data = D.prov_prod_top15[prov];
+    const total = Object.values(data).reduce((a,b)=>a+b, 0);
+    
+    const row = document.createElement('div');
+    row.className = 'prov-bar-row';
+    
+    let bars = '';
+    prodKeys.forEach((key, i) => {
+      const count = data[key] || data['其他'] || 0;
+      const keyCount = key === '其他' ? (data['其他心理相关']||0)+(data['AI心理陪伴/智能服务']||0)+(data['学生/校园心理']||0)+(data['心理测评工具']||0)+(data['EAP员工援助项目']||0)+(data['社区/司法矫正心理']||0) : (data[key]||0);
+      const pct = total > 0 ? (keyCount/total*100).toFixed(1) : 0;
+      if (pct > 0) {
+        bars += `<div style="width:${pct}%;background:${colors[i]};height:100%;opacity:0.8;" title="${key}: ${keyCount}条 (${pct}%)"></div>`;
+      }
+    });
+    
+    row.innerHTML = `
+      <div class="prov-name">${prov}</div>
+      <div class="prov-bar-wrap" style="height:24px;display:flex;">
+        ${bars}
+      </div>
+      <div class="prov-count">${total}条</div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+// ===================== 初始化所有图表 =====================
+window.onload = function() {
+  renderCompanyTable();
+  initCompanyCountChart();
+  initCompanyAmountChart();
+  initProvCountChart();
+  initProvAmountChart();
+  initProvScatterChart();
+  renderProvAmountBars();
+  initProvAvgChart();
+  initProdPieChart();
+  initProdTrendChart();
+  initYearBarChart();
+  initMonthlyChart();
+  initBuyerPieChart();
+  initNoticeTypeChart();
+  initKeywordsChart();
+  renderProvProdBars();
+};
+
+window.addEventListener('resize', function() {
+  ['chart_company_count','chart_company_amount','chart_prov_count','chart_prov_amount',
+   'chart_prov_scatter','chart_prov_avg','chart_prod_pie','chart_prod_trend',
+   'chart_year_bar','chart_monthly','chart_buyer_pie','chart_notice_type','chart_keywords'
+  ].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) echarts.getInstanceByDom(el)?.resize();
+  });
 });
 </script>
 </body>
