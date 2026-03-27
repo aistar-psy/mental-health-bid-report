@@ -25,17 +25,17 @@ body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: #f
   color:#7ba7ff; padding:4px 14px; border-radius:20px; font-size:13px; margin-bottom:20px; letter-spacing:1px;
   position:relative; z-index:1;
 }
-.hero h1 { font-size:36px; font-weight:700; line-height:1.3; margin-bottom:12px; position:relative; z-index:1; }
+.hero h1 { font-size:32px; font-weight:700; line-height:1.3; margin-bottom:12px; position:relative; z-index:1; }
 .hero p { font-size:16px; color:rgba(255,255,255,0.65); margin-bottom:30px; position:relative; z-index:1; }
 .hero-stats { display:flex; gap:40px; flex-wrap:wrap; position:relative; z-index:1; }
 .hero-stat { text-align:center; }
-.hero-stat .num { font-size:38px; font-weight:800; color:#5384ff; line-height:1; }
+.hero-stat .num { font-size:34px; font-weight:800; color:#5384ff; line-height:1; }
 .hero-stat .num.orange { color:#f97316; }
 .hero-stat .num.green { color:#22c55e; }
 .hero-stat .label { font-size:13px; color:rgba(255,255,255,0.55); margin-top:6px; }
 .container { max-width:1400px; margin:0 auto; padding:30px; }
 .section-title {
-  font-size:22px; font-weight:700; color:#1a1a2e; margin:40px 0 20px;
+  font-size:20px; font-weight:700; color:#1a1a2e; margin:35px 0 18px;
   padding-left:14px; border-left:4px solid #5384ff; display:flex; align-items:center; gap:10px;
 }
 .section-title .badge {
@@ -49,14 +49,14 @@ body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: #f
   background:white; border-radius:14px; padding:22px 24px; box-shadow:0 2px 12px rgba(0,0,0,0.06);
   border-top:3px solid #5384ff;
 }
-.kpi-card .num { font-size:32px; font-weight:800; color:#5384ff; line-height:1; }
-.kpi-card .label { font-size:13px; color:#64748b; margin-top:6px; }
-.kpi-card .sub { font-size:12px; color:#94a3b8; margin-top:4px; }
+.kpi-card .num { font-size:30px; font-weight:800; color:#5384ff; line-height:1; }
+.kpi-card .label { font-size:14px; color:#64748b; margin-top:6px; }
+.kpi-card .sub { font-size:13px; color:#94a3b8; margin-top:4px; }
 .chart-card {
   background:white; border-radius:14px; padding:24px; box-shadow:0 2px 12px rgba(0,0,0,0.06); margin-bottom:20px;
 }
-.chart-card h3 { font-size:16px; font-weight:600; color:#1a1a2e; margin-bottom:6px; }
-.chart-card .sub-desc { font-size:13px; color:#94a3b8; margin-bottom:16px; }
+.chart-card h3 { font-size:17px; font-weight:600; color:#1a1a2e; margin-bottom:6px; }
+.chart-card .sub-desc { font-size:14px; color:#94a3b8; margin-bottom:16px; }
 .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
 .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; }
 .insight-box {
@@ -106,30 +106,33 @@ footer { text-align:center; padding:40px; color:#94a3b8; font-size:13px; }
 @media (max-width: 1200px) {
   .container { padding: 20px; }
   .grid-2 { grid-template-columns: 1fr; gap: 20px; }
-  .hero h1 { font-size: 30px; }
+  .hero h1 { font-size: 28px; }
   .hero-stats { gap: 30px; }
-  .hero-stat .num { font-size: 32px; }
+  .hero-stat .num { font-size: 30px; }
 }
 
 @media (max-width: 768px) {
   .container { padding: 16px; }
   .hero { padding: 40px 20px 30px; }
-  .hero h1 { font-size: 26px; }
+  .hero h1 { font-size: 24px; }
   .hero-stats { flex-direction: column; gap: 20px; align-items: flex-start; }
   .hero-stat { text-align: left; }
-  .section-title { font-size: 20px; padding: 12px; }
+  .hero-stat .num { font-size: 28px; }
+  .section-title { font-size: 19px; padding: 12px; margin: 30px 0 16px; }
   .chart-card { padding: 16px; }
+  .chart-card h3 { font-size: 16px; }
+  .chart-card .sub-desc { font-size: 13px; }
   .kpi-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
   .kpi-item { padding: 12px; }
 }
 
 @media (max-width: 480px) {
   .hero h1 { font-size: 22px; }
-  .hero-stat .num { font-size: 28px; }
-  .section-title { font-size: 18px; }
+  .hero-stat .num { font-size: 26px; }
+  .section-title { font-size: 18px; margin: 25px 0 14px; }
   .kpi-grid { grid-template-columns: 1fr; }
-  .chart-card h3 { font-size: 16px; }
-  .sub-desc { font-size: 12px; }
+  .chart-card h3 { font-size: 15px; }
+  .chart-card .sub-desc { font-size: 12px; }
   .prod-legend { flex-direction: column; align-items: flex-start; gap: 8px; }
 }
 
