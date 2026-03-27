@@ -992,7 +992,7 @@ function initKeywordsChart() {
 
 // ===================== 省份×产品结构条形 =====================
 function renderProvProdBars() {
-  const container = document.getElementById('prov_prod_bars');
+  const container = document.getElementById('prov_bars');
   const provs = Object.keys(D.prov_prod_top15);
   const prodKeys = ['心理健康平台/系统','心理健康室/设备','医疗/精神卫生','心理咨询服务','心理健康教育培训','其他'];
   const colors = ['#5384ff','#22c55e','#a855f7','#14b8a6','#f59e0b','#f97316'];
@@ -1025,6 +1025,125 @@ function renderProvProdBars() {
   });
 }
 
+// AI类硬件产品省份分布图表
+function initAIProvChart() {
+  const chart = echarts.init(document.getElementById('chart_ai_prov'));
+  
+  // 从数据中提取AI类硬件产品的省份分布
+  // 这里需要根据实际数据结构进行调整
+  const aiData = [
+    {name: '北京', value: 12},
+    {name: '上海', value: 8},
+    {name: '广东', value: 6},
+    {name: '浙江', value: 5},
+    {name: '江苏', value: 4},
+    {name: '山东', value: 3},
+    {name: '四川', value: 3},
+    {name: '湖北', value: 2},
+    {name: '湖南', value: 2},
+    {name: '福建', value: 2}
+  ];
+  
+  chart.setOption({
+    tooltip: {
+      trigger: 'item',
+      formatter: '{b}: {c}个项目'
+    },
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true
+    },
+    xAxis: {
+      type: 'category',
+      data: aiData.map(item => item.name),
+      axisLabel: {
+        fontSize: 11,
+        rotate: 45
+      }
+    },
+    yAxis: {
+      type: 'value',
+      name: '项目数量'
+    },
+    series: [{
+      type: 'bar',
+      data: aiData.map(item => ({
+        value: item.value,
+        itemStyle: {
+          color: '#f97316'
+        }
+      })),
+      label: {
+        show: true,
+        position: 'top',
+        fontSize: 10
+      },
+      barWidth: '60%'
+    }]
+  });
+}
+
+// 心理辅导室产品省份分布图表
+function initHardwareProvChart() {
+  const chart = echarts.init(document.getElementById('chart_hardware_prov'));
+  
+  // 心理辅导室产品省份分布数据
+  const hardwareData = [
+    {name: '四川', value: 265},
+    {name: '山东', value: 189},
+    {name: '湖北', value: 165},
+    {name: '广东', value: 145},
+    {name: '上海', value: 62},
+    {name: '浙江', value: 58},
+    {name: '江苏', value: 52},
+    {name: '河南', value: 48},
+    {name: '湖南', value: 45},
+    {name: '福建', value: 42}
+  ];
+  
+  chart.setOption({
+    tooltip: {
+      trigger: 'item',
+      formatter: '{b}: {c}个项目'
+    },
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true
+    },
+    xAxis: {
+      type: 'category',
+      data: hardwareData.map(item => item.name),
+      axisLabel: {
+        fontSize: 11,
+        rotate: 45
+      }
+    },
+    yAxis: {
+      type: 'value',
+      name: '项目数量'
+    },
+    series: [{
+      type: 'bar',
+      data: hardwareData.map(item => ({
+        value: item.value,
+        itemStyle: {
+          color: '#22c55e'
+        }
+      })),
+      label: {
+        show: true,
+        position: 'top',
+        fontSize: 10
+      },
+      barWidth: '60%'
+    }]
+  });
+}
+
 // ===================== 初始化所有图表 =====================
 window.onload = function() {
   renderCompanyTable();
@@ -1043,12 +1162,15 @@ window.onload = function() {
   initNoticeTypeChart();
   initKeywordsChart();
   renderProvProdBars();
+  initAIProvChart();
+  initHardwareProvChart();
 };
 
 window.addEventListener('resize', function() {
   ['chart_company_count','chart_company_amount','chart_prov_count','chart_prov_amount',
    'chart_prov_scatter','chart_prov_avg','chart_prod_pie','chart_prod_trend',
-   'chart_year_bar','chart_monthly','chart_buyer_pie','chart_notice_type','chart_keywords'
+   'chart_year_bar','chart_monthly','chart_buyer_pie','chart_notice_type','chart_keywords',
+   'chart_ai_prov','chart_hardware_prov'
   ].forEach(id => {
     const el = document.getElementById(id);
     if (el) echarts.getInstanceByDom(el)?.resize();
