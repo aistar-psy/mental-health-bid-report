@@ -158,7 +158,200 @@ footer { text-align:center; padding:40px; color:#94a3b8; font-size:13px; }
   max-width: 150px;
 }
 
+/* ===================== 企业详情弹窗样式 ===================== */
+.projects-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.projects-modal {
+  background: white;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 900px;
+  max-height: 85vh;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+  color: white;
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.modal-close {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.modal-content {
+  padding: 32px;
+  overflow-y: auto;
+  max-height: calc(85vh - 100px);
+}
+
+.company-summary {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.summary-item {
+  text-align: center;
+}
+
+.summary-value {
+  font-size: 28px;
+  font-weight: 800;
+  color: #5384ff;
+  line-height: 1;
+}
+
+.summary-label {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 6px;
+}
+
+.projects-table-container {
+  overflow-x: auto;
+}
+
+.projects-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.projects-table th {
+  background: #f1f5f9;
+  color: #475569;
+  font-weight: 600;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.projects-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #374151;
+}
+
+.projects-table tr:hover td {
+  background: #fafbff;
+}
+
+.project-link-btn {
+  background: #5384ff;
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s;
+}
+
+.project-link-btn:hover {
+  background: #3b6fe0;
+  text-decoration: none;
+  color: white;
+}
+
+.no-projects {
+  text-align: center;
+  padding: 40px;
+  color: #94a3b8;
+  font-size: 16px;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .company-summary {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .modal-content {
+    padding: 20px;
+  }
+  
+  .projects-table th,
+  .projects-table td {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+/* ===================== 可点击的中标次数样式 ===================== */
+.clickable-count {
+  color: #5384ff;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.clickable-count:hover {
+  color: #3b6fe0;
+  text-decoration: underline;
+}
+
 </style>
+<script src="company_projects.js"></script>
 </head>
 <body>
 
@@ -718,9 +911,13 @@ function renderCompanyTable() {
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td class="${rankClass}">${rank <= 3 ? ['🥇','🥈','🥉'][rank-1] : rank}</td>
-      <td style="font-weight:600;max-width:220px;">${item.name}</td>
+      <td style="font-weight:600;max-width:220px;">
+        <a href="javascript:void(0)" onclick="showCompanyProjects('${item.name}', ${rank})" class="clickable-count" title="点击查看 ${item.name} 的所有中标项目">${item.name}</a>
+      </td>
       <td style="text-align:center;"><span style="background:#f1f5f9;padding:2px 8px;border-radius:10px;font-size:12px;">${item.prov}</span></td>
-      <td style="text-align:center;font-weight:700;color:#5384ff;font-size:16px;">${item.count}</td>
+      <td style="text-align:center;font-weight:700;color:#5384ff;font-size:16px;">
+        <a href="javascript:void(0)" onclick="showCompanyProjects('${item.name}', ${rank})" title="点击查看 ${item.name} 的所有中标项目" style="color:inherit;text-decoration:none;">${item.count}</a>
+      </td>
       <td style="text-align:right;font-weight:600;color:${item.amount > 1000 ? '#f97316' : '#374151'};">${item.amount > 0 ? item.amount.toFixed(1) : '-'}</td>
       <td><span class="badge-prod ${prodClass}">${prodShort}</span></td>
     `;
@@ -740,7 +937,7 @@ function initCompanyCountChart() {
   chart.setOption({
     tooltip: {
       trigger:'axis', axisPointer:{type:'shadow'},
-      formatter: p => `<b>${p[0].name}</b><br>中标次数：${p[0].value}次<br>成交金额：${p[0].data.amount}万元<br>主要地区：${p[0].data.prov}`
+      formatter: p => `<b>${p[0].name}</b><br>中标次数：${p[0].value}次<br>成交金额：${p[0].data.amount}万元<br>主要地区：${p[0].data.prov}<br><small style="color:#888;">点击查看该公司所有中标项目</small>`
     },
     grid: {left:'28%', right:'6%', top:'3%', bottom:'5%'},
     xAxis: {type:'value', axisLabel:{fontSize:11}, splitLine:{lineStyle:{color:'#f1f5f9'}}},
@@ -750,10 +947,23 @@ function initCompanyCountChart() {
     },
     series: [{
       type:'bar', barWidth:14,
-      data: top20.map((d,i) => ({value:d.count, amount:d.amount, prov:d.prov,
-        itemStyle:{color: i >= 17 ? '#5384ff' : i >= 14 ? '#6b96ff' : '#8ab4ff'}})),
+      data: top20.map((d,i) => ({
+        value:d.count, 
+        amount:d.amount, 
+        prov:d.prov,
+        companyName: d.name,
+        rank: 20 - i,  // 因为是倒序的
+        itemStyle:{color: i >= 17 ? '#5384ff' : i >= 14 ? '#6b96ff' : '#8ab4ff'}
+      })),
       label:{show:true, position:'right', fontSize:11, color:'#374151', formatter:'{c}次'}
     }]
+  });
+  
+  // 添加点击事件
+  chart.on('click', function(params) {
+    if (params.data && params.data.companyName) {
+      showCompanyProjects(params.data.companyName, params.data.rank);
+    }
   });
 }
 
@@ -764,7 +974,7 @@ function initCompanyAmountChart() {
   chart.setOption({
     tooltip: {
       trigger:'axis', axisPointer:{type:'shadow'},
-      formatter: p => `<b>${p[0].name}</b><br>成交金额：${p[0].value}万元<br>中标次数：${p[0].data.count}次<br>注册地：${p[0].data.prov}`
+      formatter: p => `<b>${p[0].name}</b><br>成交金额：${p[0].value}万元<br>中标次数：${p[0].data.count}次<br>注册地：${p[0].data.prov}<br><small style="color:#888;">点击查看该公司所有中标项目</small>`
     },
     grid: {left:'32%', right:'6%', top:'3%', bottom:'5%'},
     xAxis: {type:'value', axisLabel:{fontSize:11, formatter:v=>v+'万'}, splitLine:{lineStyle:{color:'#f1f5f9'}}},
@@ -775,11 +985,22 @@ function initCompanyAmountChart() {
     series:[{
       type:'bar', barWidth:14,
       data:data.map((d,i)=>({
-        value:d.amount, count:d.count, prov:d.prov,
+        value:d.amount, 
+        count:d.count, 
+        prov:d.prov,
+        companyName: d.name,
+        rank: 20 - i,  // 因为是倒序的
         itemStyle:{color: i >= 17 ? '#f97316' : i >= 12 ? '#fb923c' : '#fca572'}
       })),
       label:{show:true, position:'right', fontSize:11, color:'#374151', formatter:p=>p.value+'万'}
     }]
+  });
+  
+  // 添加点击事件
+  chart.on('click', function(params) {
+    if (params.data && params.data.companyName) {
+      showCompanyProjects(params.data.companyName, params.data.rank);
+    }
   });
 }
 
@@ -1412,6 +1633,155 @@ window.addEventListener('resize', function() {
     const el = document.getElementById(id);
     if (el) echarts.getInstanceByDom(el)?.resize();
   });
+});
+
+// ===================== 企业详情弹窗函数 =====================
+function showCompanyProjects(companyName, companyRank) {
+  const companyData = COMPANY_PROJECTS[companyName];
+  
+  if (!companyData) {
+    alert(`未找到 ${companyName} 的项目详情数据`);
+    return;
+  }
+  
+  // 创建遮罩层
+  const overlay = document.createElement('div');
+  overlay.className = 'projects-modal-overlay';
+  overlay.id = 'projectsModalOverlay';
+  overlay.onclick = function(e) {
+    if (e.target === overlay) {
+      closeCompanyProjects();
+    }
+  };
+  
+  // 创建弹窗内容
+  const modalContent = `
+    <div class="projects-modal">
+      <div class="modal-header">
+        <h2>${companyName} - 中标项目详情</h2>
+        <button class="modal-close" onclick="closeCompanyProjects()">×</button>
+      </div>
+      <div class="modal-content">
+        <div class="company-summary">
+          <div class="summary-item">
+            <div class="summary-value">${companyData.count}</div>
+            <div class="summary-label">中标次数</div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-value">${companyData.total_amount.toLocaleString()}</div>
+            <div class="summary-label">累计金额（万元）</div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-value">${companyData.projects.length}</div>
+            <div class="summary-label">已收录项目</div>
+          </div>
+        </div>
+        
+        ${companyData.projects.length > 0 ? `
+        <div class="projects-table-container">
+          <table class="projects-table">
+            <thead>
+              <tr>
+                <th>项目名称</th>
+                <th>金额（万元）</th>
+                <th>省份</th>
+                <th>采购单位</th>
+                <th>日期</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${companyData.projects.map(project => `
+                <tr>
+                  <td style="max-width:250px;">${project.title}</td>
+                  <td style="text-align:center;font-weight:600;">${project.amount.toLocaleString()}</td>
+                  <td style="text-align:center;">${project.province}</td>
+                  <td style="max-width:150px;">${project.buyer}</td>
+                  <td style="text-align:center;">${project.date}</td>
+                  <td style="text-align:center;">
+                    <a href="${project.link}" target="_blank" class="project-link-btn">查看</a>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+        ` : `
+        <div class="no-projects">
+          <p>暂无详细项目数据</p>
+        </div>
+        `}
+      </div>
+    </div>
+  `;
+  
+  overlay.innerHTML = modalContent;
+  document.body.appendChild(overlay);
+  document.body.style.overflow = 'hidden';
+  
+  // 添加ESC键关闭功能
+  const handleEscKey = (e) => {
+    if (e.key === 'Escape') {
+      closeCompanyProjects();
+    }
+  };
+  document.addEventListener('keydown', handleEscKey);
+  
+  // 保存事件监听器以便清理
+  overlay._escListener = handleEscKey;
+}
+
+function closeCompanyProjects() {
+  const overlay = document.getElementById('projectsModalOverlay');
+  if (overlay) {
+    // 移除ESC键事件监听器
+    if (overlay._escListener) {
+      document.removeEventListener('keydown', overlay._escListener);
+    }
+    overlay.remove();
+    document.body.style.overflow = 'auto';
+  }
+}
+
+// 修改表格中的中标次数为可点击
+function makeCountsClickable() {
+  // 查找所有中标次数单元格
+  const countCells = document.querySelectorAll('td[data-count]');
+  countCells.forEach(cell => {
+    const count = cell.getAttribute('data-count');
+    const companyName = cell.getAttribute('data-company');
+    const rank = cell.getAttribute('data-rank');
+    
+    if (count && companyName) {
+      cell.innerHTML = `<a href="javascript:void(0)" onclick="showCompanyProjects('${companyName}', ${rank || 1})" class="clickable-count" title="点击查看 ${companyName} 的所有中标项目">${count}</a>`;
+    }
+  });
+  
+  // 查找公司排行榜表格
+  const companyTable = document.querySelector('.company-table table');
+  if (companyTable) {
+    const rows = companyTable.querySelectorAll('tbody tr');
+    rows.forEach((row, index) => {
+      const cells = row.querySelectorAll('td');
+      if (cells.length >= 3) {
+        const companyCell = cells[0];
+        const countCell = cells[1];
+        const companyName = companyCell.textContent.trim();
+        
+        // 让公司名称也可点击
+        companyCell.innerHTML = `<a href="javascript:void(0)" onclick="showCompanyProjects('${companyName}', ${index + 1})" class="clickable-count" title="点击查看 ${companyName} 的所有中标项目">${companyName}</a>`;
+        
+        // 让中标次数可点击
+        const count = countCell.textContent.trim();
+        countCell.innerHTML = `<a href="javascript:void(0)" onclick="showCompanyProjects('${companyName}', ${index + 1})" class="clickable-count" title="点击查看 ${companyName} 的所有中标项目">${count}</a>`;
+      }
+    });
+  }
+}
+
+// 页面加载完成后初始化可点击功能
+window.addEventListener('load', function() {
+  setTimeout(makeCountsClickable, 500);
 });
 </script>
 </body>
