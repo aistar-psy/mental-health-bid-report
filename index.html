@@ -8,6 +8,75 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: #f0f2f5; color: #1a1a2e; }
+
+/* ===================== 左侧目录导航 ===================== */
+.toc-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 220px;
+  height: 100vh;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 20px 0;
+  box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+}
+.toc-sidebar::-webkit-scrollbar { width: 4px; }
+.toc-sidebar::-webkit-scrollbar-thumb { background: rgba(83,132,255,0.3); border-radius: 2px; }
+.toc-header {
+  padding: 0 20px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 15px;
+}
+.toc-header h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.toc-header span {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+}
+.toc-nav { list-style: none; padding: 0; }
+.toc-nav li { margin: 2px 0; }
+.toc-nav a {
+  display: block;
+  padding: 10px 20px;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 13px;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+.toc-nav a:hover {
+  background: rgba(83,132,255,0.1);
+  color: #fff;
+}
+.toc-nav a.active {
+  background: rgba(83,132,255,0.15);
+  color: #7ba7ff;
+  border-left-color: #5384ff;
+}
+.toc-nav .toc-icon {
+  display: inline-block;
+  width: 20px;
+  margin-right: 8px;
+  text-align: center;
+}
+
+/* 主内容区偏移 */
+.main-content {
+  margin-left: 220px;
+  min-height: 100vh;
+}
+
+/* 移动端隐藏导航 */
+@media (max-width: 1024px) {
+  .toc-sidebar { display: none; }
+  .main-content { margin-left: 0; }
+}
 .hero {
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
   color: white; padding: 60px 40px 50px; position: relative; overflow: hidden;
@@ -355,6 +424,30 @@ footer { text-align:center; padding:40px; color:#94a3b8; font-size:13px; }
 </head>
 <body>
 
+<!-- 左侧目录导航 -->
+<nav class="toc-sidebar">
+  <div class="toc-header">
+    <h2>📊 报告目录</h2>
+    <span>快速导航</span>
+  </div>
+  <ul class="toc-nav">
+    <li><a href="#weekly-section" class="toc-link"><span class="toc-icon">📅</span>双周报动态</a></li>
+    <li><a href="#company-section" class="toc-link"><span class="toc-icon">🏆</span>中标公司分析</a></li>
+    <li><a href="#province-section" class="toc-link"><span class="toc-icon">🗺️</span>省份市场分析</a></li>
+    <li><a href="#product-section" class="toc-link"><span class="toc-icon">📦</span>产品类型分析</a></li>
+    <li><a href="#trend-section" class="toc-link"><span class="toc-icon">📈</span>年度趋势</a></li>
+    <li><a href="#buyer-section" class="toc-link"><span class="toc-icon">🏢</span>采购主体</a></li>
+    <li><a href="#competition-section" class="toc-link"><span class="toc-icon">⚔️</span>区域竞争</a></li>
+    <li><a href="#notice-section" class="toc-link"><span class="toc-icon">📋</span>公告类型</a></li>
+    <li><a href="#heatmap-section" class="toc-link"><span class="toc-icon">🌍</span>地域热力</a></li>
+    <li><a href="#ai-section" class="toc-link"><span class="toc-icon">🤖</span>AI专区</a></li>
+    <li><a href="#insight-section" class="toc-link"><span class="toc-icon">💡</span>核心洞察</a></li>
+  </ul>
+</nav>
+
+<!-- 主内容区 -->
+<div class="main-content">
+
 <!-- HERO -->
 
 <div id="weekly-section" style="background:#1a1a2e;color:white;padding:40px;text-align:center;">
@@ -401,7 +494,7 @@ footer { text-align:center; padding:40px; color:#94a3b8; font-size:13px; }
   </div>
 </div>
 
-<div class="section-title">
+<div class="section-title" id="company-section">
   🏆 中标公司竞争格局分析
   <span class="new-badge">核心新增</span>
 </div>
@@ -441,7 +534,7 @@ footer { text-align:center; padding:40px; color:#94a3b8; font-size:13px; }
 </div>
 
 <!-- ========== 新模块：地区分布深度分析 ========== -->
-<div class="section-title">
+<div class="section-title" id="province-section">
   🗺️ 省份市场规模深度分析
   <span class="new-badge">核心新增</span>
 </div>
@@ -479,7 +572,7 @@ footer { text-align:center; padding:40px; color:#94a3b8; font-size:13px; }
 </div>
 
 <!-- ========== 模块一：产品大类占比 ========== -->
-<div class="section-title">
+<div class="section-title" id="product-section">
   📦 产品大类市场占比分析
   <span class="new-badge">新增模块</span>
 </div>
@@ -667,7 +760,7 @@ footer { text-align:center; padding:40px; color:#94a3b8; font-size:13px; }
 </div>
 
 <!-- ========== 模块七：AI赛道专区 ========== -->
-<div class="ai-section">
+<div class="ai-section" id="ai-section">
   <div style="display:inline-block;background:rgba(249,115,22,0.2);border:1px solid rgba(249,115,22,0.4);color:#f97316;padding:3px 12px;border-radius:20px;font-size:12px;margin-bottom:12px;">🤖 AI赛道深度追踪</div>
   <h3>AI心理产品政府采购专项分析</h3>
   <p style="font-size:14px;color:rgba(255,255,255,0.6);margin-top:6px;">涵盖心理陪伴机器人、AI心理小屋、VR/AR减压设备、智能评估系统等新兴品类</p>
@@ -684,7 +777,7 @@ footer { text-align:center; padding:40px; color:#94a3b8; font-size:13px; }
 </div>
 
 <!-- ========== 模块八：核心洞察 ========== -->
-<div class="section-title">💡 核心市场洞察</div>
+<div class="section-title" id="insight-section">💡 核心市场洞察</div>
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:30px;">
   <div class="insight-box">
@@ -1789,6 +1882,54 @@ function makeCountsClickable() {
 window.addEventListener('load', function() {
   setTimeout(makeCountsClickable, 500);
 });
+
+// ===================== 目录导航滚动高亮 =====================
+(function() {
+  const sections = [
+    'weekly-section', 'company-section', 'province-section', 'product-section',
+    'trend-section', 'buyer-section', 'competition-section', 'notice-section',
+    'heatmap-section', 'ai-section', 'insight-section'
+  ];
+  const navLinks = document.querySelectorAll('.toc-nav a');
+  
+  function updateActiveNav() {
+    const scrollPos = window.scrollY + 100;
+    let activeId = sections[0];
+    
+    for (const id of sections) {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= scrollPos) {
+        activeId = id;
+      }
+    }
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + activeId) {
+        link.classList.add('active');
+      }
+    });
+  }
+  
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
+  
+  // 平滑滚动
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').slice(1);
+      const target = document.getElementById(targetId);
+      if (target) {
+        window.scrollTo({
+          top: target.offsetTop - 20,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+})();
 </script>
+</div><!-- /.main-content -->
 </body>
 </html>
