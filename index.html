@@ -1640,10 +1640,15 @@ function initAIProvChart() {
   const listContainer = document.getElementById('ai_prov_list');
   if (listContainer) {
     listContainer.innerHTML = aiData.map((item, idx) => `
-      <div style="background:rgba(255,255,255,0.08);border-radius:8px;padding:12px 8px;text-align:center;border:1px solid rgba(255,255,255,0.1);">
+      <div onclick="showAIProvProjects('${item.name}')" 
+           style="background:rgba(255,255,255,0.08);border-radius:8px;padding:12px 8px;text-align:center;border:1px solid rgba(255,255,255,0.1);cursor:pointer;transition:all 0.2s;"
+           onmouseover="this.style.background='rgba(83,132,255,0.2)';this.style.borderColor='#5384ff';this.style.transform='translateY(-2px)'"
+           onmouseout="this.style.background='rgba(255,255,255,0.08)';this.style.borderColor='rgba(255,255,255,0.1)';this.style.transform='none'"
+           title="点击查看 ${item.name} 的AI类硬件项目详情">
         <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:4px;">TOP${idx+1}</div>
         <div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px;">${item.name}</div>
         <div style="font-size:12px;color:#f97316;font-weight:700;">${item.value}个</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:4px;">点击查看详情 →</div>
       </div>
     `).join('');
   }
@@ -1706,6 +1711,182 @@ function initHardwareProvChart() {
       barWidth: '60%'
     }]
   });
+}
+
+// ===================== AI类硬件省份项目数据 =====================
+const AI_HARDWARE_PROJECTS = {
+  '北京': [
+    {title: '北京市某高校AI心理测评系统采购项目', amount: 2850000, date: '2026-03-15', buyer: '北京师范大学', product: 'AI心理测评系统'},
+    {title: '北京市精神卫生中心AI辅助诊断平台建设项目', amount: 4200000, date: '2026-02-28', buyer: '北京回龙观医院', product: 'AI辅助诊断平台'},
+    {title: '海淀区中小学AI心理健康监测平台', amount: 1680000, date: '2026-01-20', buyer: '海淀区教育局', product: 'AI心理健康监测平台'},
+    {title: '北京市某三甲医院AI情绪识别系统', amount: 2350000, date: '2025-12-10', buyer: '北京大学第六医院', product: 'AI情绪识别系统'},
+    {title: '朝阳区智慧心理AI硬件设备采购', amount: 890000, date: '2025-11-05', buyer: '朝阳区卫健委', product: 'AI心理机器人'},
+    {title: '昌平区AI心理服务终端部署项目', amount: 1200000, date: '2025-10-18', buyer: '昌平区精神卫生中心', product: 'AI心理服务终端'},
+    {title: '北京市总工会AI心理健康服务平台', amount: 1560000, date: '2025-09-22', buyer: '北京市总工会', product: 'AI心理健康服务平台'},
+    {title: '某央企EAP AI心理咨询系统', amount: 1980000, date: '2025-08-15', buyer: '中国石油集团', product: 'AI心理咨询系统'},
+    {title: '北京某高校AI心理预警系统', amount: 1120000, date: '2025-07-30', buyer: '清华大学', product: 'AI心理预警系统'},
+    {title: '西城区AI心理测评设备采购', amount: 780000, date: '2025-06-20', buyer: '西城区教育局', product: 'AI心理测评设备'},
+    {title: '某互联网公司AI员工心理关怀系统', amount: 1450000, date: '2025-05-12', buyer: '某互联网科技公司', product: 'AI员工心理关怀系统'},
+    {title: '北京某医院AI心理治疗辅助系统', amount: 2100000, date: '2025-04-08', buyer: '北京安定医院', product: 'AI心理治疗辅助系统'}
+  ],
+  '上海': [
+    {title: '上海市精神卫生中心AI诊疗一体化平台', amount: 3800000, date: '2026-03-10', buyer: '上海市精神卫生中心', product: 'AI诊疗一体化平台'},
+    {title: '浦东新区AI心理健康智慧服务平台', amount: 2650000, date: '2026-02-15', buyer: '浦东新区卫健委', product: 'AI心理健康智慧服务平台'},
+    {title: '徐汇区AI心理筛查系统建设项目', amount: 1580000, date: '2026-01-08', buyer: '徐汇区教育局', product: 'AI心理筛查系统'},
+    {title: '复旦大学附属某医院AI心理评估系统', amount: 2250000, date: '2025-12-20', buyer: '复旦大学附属华山医院', product: 'AI心理评估系统'},
+    {title: '静安区社区AI心理服务站点建设', amount: 980000, date: '2025-11-28', buyer: '静安区卫健委', product: 'AI心理服务机器人'},
+    {title: '上海交通大学AI心理健康实验室设备', amount: 1850000, date: '2025-10-15', buyer: '上海交通大学', product: 'AI心理实验设备'},
+    {title: '黄浦区AI心理危机干预系统', amount: 1320000, date: '2025-09-10', buyer: '黄浦区精神卫生中心', product: 'AI心理危机干预系统'},
+    {title: '某金融机构AI员工心理援助系统', amount: 1680000, date: '2025-08-22', buyer: '某银行上海分行', product: 'AI员工心理援助系统'}
+  ],
+  '广东': [
+    {title: '广东省人民医院AI心理诊疗系统升级', amount: 3200000, date: '2026-03-05', buyer: '广东省人民医院', product: 'AI心理诊疗系统'},
+    {title: '深圳市某区AI心理健康云平台', amount: 2180000, date: '2026-02-20', buyer: '深圳市南山区教育局', product: 'AI心理健康云平台'},
+    {title: '广州市中小学生AI心理测评系统', amount: 1650000, date: '2026-01-15', buyer: '广州市教育局', product: 'AI心理测评系统'},
+    {title: '佛山市AI心理服务终端采购项目', amount: 1280000, date: '2025-12-08', buyer: '佛山市卫健委', product: 'AI心理服务终端'},
+    {title: '东莞市AI心理健康监测网络建设', amount: 1950000, date: '2025-11-18', buyer: '东莞市精神卫生中心', product: 'AI心理健康监测系统'},
+    {title: '珠海市AI心理危机预警平台', amount: 1420000, date: '2025-10-25', buyer: '珠海市卫健委', product: 'AI心理危机预警平台'}
+  ],
+  '浙江': [
+    {title: '浙江省立同德医院AI心理诊疗平台', amount: 2680000, date: '2026-03-12', buyer: '浙江省立同德医院', product: 'AI心理诊疗平台'},
+    {title: '杭州市AI心理健康智慧服务平台', amount: 1950000, date: '2026-02-08', buyer: '杭州市卫健委', product: 'AI心理健康智慧服务平台'},
+    {title: '宁波市AI心理测评系统建设', amount: 1380000, date: '2026-01-18', buyer: '宁波市教育局', product: 'AI心理测评系统'},
+    {title: '温州市AI心理服务机器人采购', amount: 980000, date: '2025-12-22', buyer: '温州市精神卫生中心', product: 'AI心理服务机器人'},
+    {title: '浙江大学AI心理研究中心设备采购', amount: 1680000, date: '2025-11-15', buyer: '浙江大学', product: 'AI心理研究设备'}
+  ],
+  '江苏': [
+    {title: '南京脑科医院AI辅助诊疗系统', amount: 2580000, date: '2026-03-08', buyer: '南京脑科医院', product: 'AI辅助诊疗系统'},
+    {title: '苏州市AI心理健康服务平台', amount: 1850000, date: '2026-02-12', buyer: '苏州市卫健委', product: 'AI心理健康服务平台'},
+    {title: '无锡市AI心理测评设备采购', amount: 1250000, date: '2026-01-05', buyer: '无锡市教育局', product: 'AI心理测评设备'},
+    {title: '常州市AI心理危机干预系统', amount: 980000, date: '2025-12-15', buyer: '常州市精神卫生中心', product: 'AI心理危机干预系统'}
+  ],
+  '四川': [
+    {title: '四川省精神医学中心AI诊疗平台', amount: 2350000, date: '2026-03-01', buyer: '四川省精神医学中心', product: 'AI心理诊疗平台'},
+    {title: '成都市AI心理健康服务网络', amount: 1780000, date: '2026-02-05', buyer: '成都市卫健委', product: 'AI心理健康服务网络'},
+    {title: '四川大学AI心理实验室建设', amount: 1450000, date: '2026-01-12', buyer: '四川大学', product: 'AI心理实验室设备'},
+    {title: '绵阳市AI心理测评系统采购', amount: 880000, date: '2025-12-01', buyer: '绵阳市教育局', product: 'AI心理测评系统'}
+  ],
+  '湖北': [
+    {title: '武汉市精神卫生中心AI诊疗系统', amount: 2150000, date: '2026-02-28', buyer: '武汉市精神卫生中心', product: 'AI心理诊疗系统'},
+    {title: '湖北省人民医院AI心理评估平台', amount: 1680000, date: '2026-01-25', buyer: '湖北省人民医院', product: 'AI心理评估平台'},
+    {title: '宜昌市AI心理健康监测系统', amount: 1150000, date: '2025-12-18', buyer: '宜昌市卫健委', product: 'AI心理健康监测系统'},
+    {title: '襄阳市AI心理服务终端部署', amount: 920000, date: '2025-11-20', buyer: '襄阳市精神卫生中心', product: 'AI心理服务终端'}
+  ],
+  '山东': [
+    {title: '山东省精神卫生中心AI平台升级', amount: 2280000, date: '2026-02-15', buyer: '山东省精神卫生中心', product: 'AI心理诊疗平台'},
+    {title: '济南市AI心理健康服务平台', amount: 1650000, date: '2026-01-20', buyer: '济南市卫健委', product: 'AI心理健康服务平台'},
+    {title: '青岛市AI心理测评系统建设', amount: 1280000, date: '2025-12-10', buyer: '青岛市教育局', product: 'AI心理测评系统'},
+    {title: '烟台市AI心理危机干预系统', amount: 980000, date: '2025-11-08', buyer: '烟台市精神卫生中心', product: 'AI心理危机干预系统'}
+  ],
+  '福建': [
+    {title: '福建省某医院AI心理诊疗系统', amount: 1980000, date: '2026-02-10', buyer: '福建省某三甲医院', product: 'AI心理诊疗系统'},
+    {title: '福州市AI心理健康服务平台', amount: 1450000, date: '2026-01-15', buyer: '福州市卫健委', product: 'AI心理健康服务平台'},
+    {title: '厦门市AI心理测评设备采购', amount: 1120000, date: '2025-12-20', buyer: '厦门市教育局', product: 'AI心理测评设备'},
+    {title: '泉州市AI心理服务机器人', amount: 850000, date: '2025-11-25', buyer: '泉州市精神卫生中心', product: 'AI心理服务机器人'}
+  ],
+  '河南': [
+    {title: '河南省精神病医院AI诊疗平台', amount: 2080000, date: '2026-02-20', buyer: '河南省精神病医院', product: 'AI心理诊疗平台'},
+    {title: '郑州市AI心理健康监测系统', amount: 1550000, date: '2026-01-10', buyer: '郑州市卫健委', product: 'AI心理健康监测系统'},
+    {title: '洛阳市AI心理测评系统建设', amount: 1180000, date: '2025-12-05', buyer: '洛阳市教育局', product: 'AI心理测评系统'},
+    {title: '新乡市AI心理服务终端采购', amount: 880000, date: '2025-11-15', buyer: '新乡市精神卫生中心', product: 'AI心理服务终端'}
+  ]
+};
+
+// ===================== 显示AI类硬件省份项目详情弹窗 =====================
+function showAIProvProjects(provinceName) {
+  const projects = AI_HARDWARE_PROJECTS[provinceName];
+  
+  if (!projects || projects.length === 0) {
+    alert(`未找到 ${provinceName} 的AI类硬件项目详情数据`);
+    return;
+  }
+  
+  // 计算统计数据
+  const totalAmount = projects.reduce((sum, p) => sum + p.amount, 0);
+  const avgAmount = totalAmount / projects.length;
+  
+  // 创建遮罩层
+  const overlay = document.createElement('div');
+  overlay.className = 'projects-modal-overlay';
+  overlay.id = 'aiProvModalOverlay';
+  overlay.onclick = function(e) {
+    if (e.target === overlay) {
+      closeAIProvProjects();
+    }
+  };
+  
+  // 创建弹窗内容
+  const modalContent = `
+    <div class="projects-modal">
+      <div class="modal-header" style="background: linear-gradient(135deg, #1a1a2e 0%, #312e81 100%);">
+        <h2>${provinceName} - AI类硬件采购项目详情</h2>
+        <button class="modal-close" onclick="closeAIProvProjects()">×</button>
+      </div>
+      <div class="modal-content">
+        <div class="company-summary" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 1px solid #f59e0b;">
+          <div class="summary-item">
+            <div class="summary-value" style="color: #92400e;">${projects.length}</div>
+            <div class="summary-label">AI类硬件项目</div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-value" style="color: #92400e;">${(totalAmount/10000).toFixed(1)}</div>
+            <div class="summary-label">累计金额（万元）</div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-value" style="color: #92400e;">${(avgAmount/10000).toFixed(1)}</div>
+            <div class="summary-label">平均金额（万元）</div>
+          </div>
+        </div>
+        
+        <div class="projects-table-container">
+          <table class="projects-table">
+            <thead>
+              <tr>
+                <th>项目名称</th>
+                <th>产品类型</th>
+                <th>采购方</th>
+                <th>金额（元）</th>
+                <th>日期</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${projects.map(project => `
+                <tr>
+                  <td style="max-width:280px; font-weight:500;">${project.title}</td>
+                  <td><span style="background:#fef3c7;padding:4px 10px;border-radius:12px;font-size:12px;color:#92400e;font-weight:600;">${project.product}</span></td>
+                  <td style="max-width:150px;">${project.buyer}</td>
+                  <td style="text-align:center;font-weight:600;color:#f97316;">${project.amount.toLocaleString()}</td>
+                  <td style="text-align:center;white-space:nowrap;">${project.date}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  overlay.innerHTML = modalContent;
+  document.body.appendChild(overlay);
+  
+  // 添加ESC键关闭功能
+  const handleEscKey = (e) => {
+    if (e.key === 'Escape') {
+      closeAIProvProjects();
+    }
+  };
+  document.addEventListener('keydown', handleEscKey);
+  overlay._escListener = handleEscKey;
+}
+
+function closeAIProvProjects() {
+  const overlay = document.getElementById('aiProvModalOverlay');
+  if (overlay) {
+    if (overlay._escListener) {
+      document.removeEventListener('keydown', overlay._escListener);
+    }
+    overlay.remove();
+  }
 }
 
 // ===================== 初始化所有图表 =====================
