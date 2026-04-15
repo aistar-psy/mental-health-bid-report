@@ -1635,6 +1635,18 @@ function initAIProvChart() {
       barWidth: '60%'
     }]
   });
+  
+  // 渲染AI类硬件采购省份TOP10列表
+  const listContainer = document.getElementById('ai_prov_list');
+  if (listContainer) {
+    listContainer.innerHTML = aiData.map((item, idx) => `
+      <div style="background:rgba(255,255,255,0.08);border-radius:8px;padding:12px 8px;text-align:center;border:1px solid rgba(255,255,255,0.1);">
+        <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:4px;">TOP${idx+1}</div>
+        <div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px;">${item.name}</div>
+        <div style="font-size:12px;color:#f97316;font-weight:700;">${item.value}个</div>
+      </div>
+    `).join('');
+  }
 }
 
 // 心理辅导室产品省份分布图表
